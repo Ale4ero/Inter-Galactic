@@ -67,6 +67,7 @@ class Player{
 
     movePlayer(){
 
+        //if image is loaded we can move it
         if (this.image){
             const thrust = 5
             const turnSpeed = 5
@@ -155,16 +156,56 @@ class Projectile{
     }
 }
 
-class meteor{
-    constructor({})
+class Meteor{
+    constructor(){
+        const image = new Image()
+        image.src = './img/asteroid_1.png'
+
+        image.onload = () => {
+            const ratio = 1
+            this.image = image
+            this.width = image.width * ratio
+            this.height = image.height * ratio
+            this.velocity = Math.random * 10 + 1
+
+            this.position = {
+                x: 200,
+                y: 200
+            }
+            
+        }        
+    }
+
+    draw(){
+        if (this.image){
+            c.drawImage(
+                this.image, 
+                this.position.x,
+                this.position.y,
+                this.width, 
+                this.height
+            ) 
+        }
+    }
+
+    update(){
+        this.draw()
+        this.position.x += this.velocity
+    }
+
 }
+
+
 
 const player = new Player()
 const projectiles = []
+const meteors = []
+
+const meteor = new Meteor()
+
 
 
 function handleKeyInput(event) {
-    const speed = 10
     const { key, type } = event;
     const isKeyDown = type === 'keydown' ? true : false;
 
@@ -182,7 +223,7 @@ function handleKeyInput(event) {
     } 
     if (key === ' '){
         player.shooting = isKeyDown;
-        console.log('pew')
+        console.log(projectiles)
     } 
   }
 
@@ -193,15 +234,25 @@ function animate(){
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.movePlayer()
+    meteor.draw()
 
+    //garbage collecting for projectiles
     projectiles.forEach((projectile, index)=> {
         if (projectile.position.y + projectile.radius < 0){
             projectiles.splice(index, 1)
-        }else{
+        }else if (projectile.position.y > canvas.height){
+            projectiles.splice(index, 1)
+        }else if (projectile.position.x + projectile.radius < 0){
+            projectiles.splice(index, 1)
+        }else if (projectile.position.x > canvas.width){
+            projectiles.splice(index, 1)
+        }
+        else{
             projectile.update()
         }
-        
     })
+
+    
 
 
 }
