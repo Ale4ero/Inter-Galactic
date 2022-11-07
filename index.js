@@ -156,7 +156,7 @@ class Projectile{
     }
 }
 
-class Meteor{
+class Asteroid{
     constructor(){
         const image = new Image()
         image.src = './img/asteroid_1.png'
@@ -199,9 +199,9 @@ class Meteor{
 
 const player = new Player()
 const projectiles = []
-const meteors = []
+const asteroids = []
 
-const meteor = new Meteor()
+const asteroid = new Asteroid()
 
 
 
