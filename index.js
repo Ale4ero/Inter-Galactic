@@ -11,11 +11,12 @@ class Player{
             y: 0
         }
 
-        this.angle = 0;
-        this.engineOn = false;
-        this.rotatingLeft = false;
-        this.rotatingRight = false;
-        this.shooting = false;
+        this.angle = 0
+        this.engineOn = false
+        this.rotatingLeft = false
+        this.rotatingRight = false
+        this.shooting = false
+        this.reverse = false
 
         const image = new Image()
         image.src = './img/blue_orange_ship.png'
@@ -114,6 +115,12 @@ class Player{
             if (this.engineOn) {
                 this.velocity.x += (thrust / 100) * Math.sin(this.angle);
                 this.velocity.y -= (thrust / 100) * Math.cos(this.angle);
+            }
+
+            //Reverse
+            if (this.reverse) {
+                this.velocity.x += -(thrust / 100) * Math.sin(this.angle);
+                this.velocity.y -= -(thrust / 100) * Math.cos(this.angle);
             }
 
             //shooting
@@ -217,21 +224,24 @@ function handleKeyInput(event) {
     const isKeyDown = type === 'keydown' ? true : false;
 
     if (key === 'a'){
-        player.rotatingLeft = isKeyDown;
+        player.rotatingLeft = isKeyDown
         //console.log('left')
     } 
     if (key === 'd'){
-        player.rotatingRight = isKeyDown;
+        player.rotatingRight = isKeyDown
         //console.log('right')
     } 
     if (key === 'w'){
-        player.engineOn = isKeyDown;
+        player.engineOn = isKeyDown
         //console.log('up')
     } 
     if (key === ' '){
-        player.shooting = isKeyDown;
+        player.shooting = isKeyDown
         //console.log(projectiles)
     } 
+    if (key === 's'){
+        player.reverse = isKeyDown
+    }
   }
 
 
@@ -280,11 +290,11 @@ function animate(){
                         projectiles.splice(j, 1)
                     }
     
-                console.log('Asteroid Position:\n RB: X: '+ RB+"\n"+
+                console.log('Asteroid Position:\nRB: X: '+ RB+"\n"+
                 'LB: X: '+ asteroid.position.x + '\n'+
                 'TB: Y: ' + asteroid.position.y + '\n'+
-                'BB: Y: '+ BB + '\n'+
-                'Px: '+ projectile.position.x + '\n'+
+                'BB: Y: '+ BB + '\n\n'+
+                'Pixel Position: \nPx: '+ projectile.position.x + '\n'+
                 'Py: '+ projectile.position.y)
             })
         }
