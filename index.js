@@ -272,30 +272,36 @@ function animate(){
     //garbage collecting for asteroids
     asteroids.forEach((asteroid, i)=>{
         if (asteroid.image){
+            const RBorder = asteroid.position.x + asteroid.width
+            const LBorder = asteroid.position.x
+            const BBorder = asteroid.position.y + asteroid.height
+            const TBorder = asteroid.position.y
             if(asteroid.position.x > canvas.width){
                 asteroids.splice(i,1)
             }else{
                 asteroid.update()
             }
+
+            //player collision with asteroids
     
+            //collision detection for projectiles and ateroids
             projectiles.forEach((projectile, j) =>{
-                const RB = asteroid.position.x + asteroid.width
-                const BB = asteroid.position.y + asteroid.height
-                if(projectile.position.x <= RB && 
-                    projectile.position.x  >= asteroid.position.x && 
-                    projectile.position.y  >= asteroid.position.y && 
-                    projectile.position.y  <= BB){
+                if(projectile.position.x <= RBorder && 
+                    projectile.position.x  >= LBorder && 
+                    projectile.position.y  >= TBorder && 
+                    projectile.position.y  <= BBorder){
                         console.log('hit!')
                         asteroids.splice(i,1)
                         projectiles.splice(j, 1)
                     }
     
-                console.log('Asteroid Position:\nRB: X: '+ RB+"\n"+
-                'LB: X: '+ asteroid.position.x + '\n'+
-                'TB: Y: ' + asteroid.position.y + '\n'+
-                'BB: Y: '+ BB + '\n\n'+
-                'Pixel Position: \nPx: '+ projectile.position.x + '\n'+
-                'Py: '+ projectile.position.y)
+                //positioning testing 
+                // console.log('Asteroid Position:\nRB: X: '+ RB+"\n"+
+                // 'LB: X: '+ asteroid.position.x + '\n'+
+                // 'TB: Y: ' + asteroid.position.y + '\n'+
+                // 'BB: Y: '+ BB + '\n\n'+
+                // 'Pixel Position: \nPx: '+ projectile.position.x + '\n'+
+                // 'Py: '+ projectile.position.y)
             })
         }
         
