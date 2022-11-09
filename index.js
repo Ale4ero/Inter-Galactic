@@ -166,31 +166,38 @@ class Asteroid{
             this.image = image
             this.width = image.width * ratio
             this.height = image.height * ratio
-            this.velocity = Math.random * 10 + 1
+            this.velocity = Math.random() * 10 + 1
 
             this.position = {
-                x: 200,
-                y: 200
+                x: -this.width,
+                y: Math.random() * (canvas.height - this.height)
             }
             
+            this.topBorder = this.position.y
+            this.bottomBorder = this.position.y + this.height
+            this.leftBorder = this.position.x
+            this.rightBorder = this.position.x + this.width
         }        
     }
 
     draw(){
-        if (this.image){
-            c.drawImage(
-                this.image, 
-                this.position.x,
-                this.position.y,
-                this.width, 
-                this.height
-            ) 
-        }
+        
+        c.drawImage(
+            this.image, 
+            this.position.x,
+            this.position.y,
+            this.width, 
+            this.height
+        ) 
+    
     }
 
     update(){
-        this.draw()
-        this.position.x += this.velocity
+        if(this.image){
+            this.draw()
+            this.position.x += this.velocity
+        }
+        
     }
 
 }
@@ -200,8 +207,8 @@ class Asteroid{
 const player = new Player()
 const projectiles = []
 const asteroids = []
-
-const asteroid = new Asteroid()
+const astCount = 0
+asteroids.push(new Asteroid())
 
 
 
@@ -211,30 +218,30 @@ function handleKeyInput(event) {
 
     if (key === 'a'){
         player.rotatingLeft = isKeyDown;
-        console.log('left')
+        //console.log('left')
     } 
     if (key === 'd'){
         player.rotatingRight = isKeyDown;
-        console.log('right')
+        //console.log('right')
     } 
     if (key === 'w'){
         player.engineOn = isKeyDown;
-        console.log('up')
+        //console.log('up')
     } 
     if (key === ' '){
         player.shooting = isKeyDown;
-        console.log(projectiles)
+        //console.log(projectiles)
     } 
   }
 
 
 function animate(){
-    const speed = 10
+    
     requestAnimationFrame(animate)
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.movePlayer()
-    meteor.draw()
+    
 
     //garbage collecting for projectiles
     projectiles.forEach((projectile, index)=> {
@@ -250,9 +257,48 @@ function animate(){
         else{
             projectile.update()
         }
+    })    
+    
+    //garbage collecting for asteroids
+    asteroids.forEach((asteroid, i)=>{
+        if (asteroid.image){
+            if(asteroid.position.x > canvas.width){
+                asteroids.splice(i,1)
+            }else{
+                asteroid.update()
+            }
+    
+            projectiles.forEach((projectile, j) =>{
+                const RB = asteroid.position.x + asteroid.width
+                const BB = asteroid.position.y + asteroid.height
+                if(projectile.position.x <= RB && 
+                    projectile.position.x  >= asteroid.position.x && 
+                    projectile.position.y  >= asteroid.position.y && 
+                    projectile.position.y  <= BB){
+                        console.log('hit!')
+                        asteroids.splice(i,1)
+                        projectiles.splice(j, 1)
+                    }
+    
+                console.log('Asteroid Position:\n RB: X: '+ RB+"\n"+
+                'LB: X: '+ asteroid.position.x + '\n'+
+                'TB: Y: ' + asteroid.position.y + '\n'+
+                'BB: Y: '+ BB + '\n'+
+                'Px: '+ projectile.position.x + '\n'+
+                'Py: '+ projectile.position.y)
+            })
+        }
+        
+
     })
 
+    //max 3 asteroids 
+    if (asteroids.length < 3){
+        console.log(asteroids)
+        asteroids.push(new Asteroid())
+    }
     
+    //asteroid collision
 
 
 }
