@@ -17,6 +17,7 @@ class Player{
         this.rotatingRight = false
         this.shooting = false
         this.reverse = false
+        this.opacity = 1
 
         const image = new Image()
         image.src = './img/blue_orange_ship.png'
@@ -38,6 +39,7 @@ class Player{
         // c.fillRect(this.position.x, this.position.y, this.width, this.height)
         
         c.save()
+        c.globalAlpha = this.opacity
         c.translate(player.position.x + player.width/2, player.position.y + player.height / 2)
         c.rotate(this.angle)
         c.translate(-player.position.x - player.width/2, -player.position.y - player.height / 2)
@@ -216,6 +218,10 @@ const projectiles = []
 const asteroids = []
 const astCount = 0
 asteroids.push(new Asteroid())
+let game = {
+    over: false,
+    active: false
+}
 
 
 
@@ -272,24 +278,39 @@ function animate(){
     //garbage collecting for asteroids
     asteroids.forEach((asteroid, i)=>{
         if (asteroid.image){
-            const RBorder = asteroid.position.x + asteroid.width
-            const LBorder = asteroid.position.x
-            const BBorder = asteroid.position.y + asteroid.height
-            const TBorder = asteroid.position.y
-            if(asteroid.position.x > canvas.width){
+            //variables for asteroid borders
+            const ARBorder = asteroid.position.x + asteroid.width
+            const ALBorder = asteroid.position.x
+            const ABBorder = asteroid.position.y + asteroid.height
+            const ATBorder = asteroid.position.y
+
+            //variables for player borders
+            const PRBorder = player.position.x + player.width
+            const PLBorder = player.position.x
+            const PBBorder = player.position.y + player.height
+            const PTBorder = player.position.y
+
+            //if asteroid goes off screen delete it
+            if(ALBorder > canvas.width){
                 asteroids.splice(i,1)
             }else{
                 asteroid.update()
             }
 
             //player collision with asteroids
+            if (ARBorder >= PLBorder && ALBorder <= PRBorder &&
+                ABBorder >= PTBorder && ATBorder <= PBBorder){
+                    console.log('player hit!')
+                    player.opacity = 0
+                    game.over = true
+                }
     
             //collision detection for projectiles and ateroids
             projectiles.forEach((projectile, j) =>{
-                if(projectile.position.x <= RBorder && 
-                    projectile.position.x  >= LBorder && 
-                    projectile.position.y  >= TBorder && 
-                    projectile.position.y  <= BBorder){
+                if(projectile.position.x <= ARBorder && 
+                    projectile.position.x  >= ALBorder && 
+                    projectile.position.y  >= ATBorder && 
+                    projectile.position.y  <= ABBorder){
                         console.log('hit!')
                         asteroids.splice(i,1)
                         projectiles.splice(j, 1)
@@ -309,8 +330,8 @@ function animate(){
     })
 
     //max 3 asteroids 
-    if (asteroids.length < 3){
-        console.log(asteroids)
+    if (asteroids.length < 5){
+        //console.log(asteroids)
         asteroids.push(new Asteroid())
     }
     
