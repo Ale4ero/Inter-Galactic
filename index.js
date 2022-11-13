@@ -20,7 +20,7 @@ class Player{
         this.opacity = 1
 
         const image = new Image()
-        image.src = './img/blue_orange_ship.png'
+        image.src = './img/blue_orange_ship_pixel.png'
 
         image.onload = () => {
             const ratio = .5
@@ -168,7 +168,7 @@ class Projectile{
 class Asteroid{
     constructor(){
         const image = new Image()
-        image.src = './img/asteroid_1.png'
+        image.src = './img/asteroid_pixel.png'
 
         image.onload = () => {
             const ratio = Math.random() * 1.2 + .5
@@ -308,7 +308,7 @@ function animate(){
             const PTBorder = player.position.y
 
             //if asteroid goes off screen delete it
-            if(ALBorder > canvas.width || ABBorder > canvas.height){
+            if(ALBorder > canvas.width || ATBorder > canvas.height){
                 setTimeout(()=>{
                     asteroids.splice(i,1)
                 }, 0)
