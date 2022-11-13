@@ -151,17 +151,44 @@ class Projectile{
     }
 
     draw(){
-        c.beginPath()
-        c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
+        // c.beginPath()
+        // c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
+        // c.fillStyle = 'red'
+        // c.fill()
+        // c.closePath()
         c.fillStyle = 'red'
-        c.fill()
-        c.closePath()
+        c.fillRect(this.position.x, this.position.y, 7, 7)
     }
 
     update(){
         this.draw()
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
+    }
+}
+
+class Particle{
+    constructor({position, velocity, size, color}){
+        this.position = position
+        this.velocity = velocity
+        this.size = size
+        this.color = color
+        this.opacity = 1
+    }
+
+    draw(){
+        c.save()
+        c.globalAlpha = this.opacity
+        c.fillStyle = this.color
+        c.fillRect(this.position.x, this.position.y, this.size.width, this.size.height)
+        c.restore()
+    }
+
+    update(){
+        this.draw()
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
+        this.opacity -= 0.01
     }
 }
 
@@ -219,11 +246,8 @@ class Asteroid{
             }else{
                 this.position.y += this.velocity
             }
-            
-        }
-        
+        } 
     }
-
 }
 
 
@@ -231,12 +255,13 @@ class Asteroid{
 const player = new Player()
 const projectiles = []
 const asteroids = []
+const particles = []
 const astCount = 0
-asteroids.push(new Asteroid())
 let game = {
     over: false,
     active: true
 }
+asteroids.push(new Asteroid())
 
 
 
@@ -266,6 +291,26 @@ function handleKeyInput(event) {
     }
   }
 
+function createParticles({object, color}){
+    for(let i = 0; i < 15; i++){
+        let amount = Math.random() * 10
+        particles.push(new Particle({
+            position: {
+                x: object.position.x + object.width/2,
+                y: object.position.y + object.height/2
+            }, 
+            velocity: {
+                x: (Math.random() - .5) * 2,
+                y : (Math.random() - .5) * 2
+            },
+            size: {
+                width: amount,
+                height: amount
+            },
+            color : color || '#8e99a9'
+        }))
+    }
+}
 
 function animate(){
     if (!game.active) return
@@ -273,7 +318,20 @@ function animate(){
     requestAnimationFrame(animate)
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
-    player.movePlayer()
+    if (!game.over){
+        player.movePlayer()
+    }
+    
+    particles.forEach((particle, i) =>{
+        if (particle.opacity <= 0){
+            setTimeout(()=>{
+                particles.splice(i, 1)
+            }, 0) 
+        } else{
+            particle.update()
+        }
+        
+    })
     
 
     //garbage collecting for projectiles
@@ -321,19 +379,24 @@ function animate(){
             if (ARBorder >= PLBorder && ALBorder <= PRBorder &&
                 ABBorder >= PTBorder && ATBorder <= PBBorder){
                     console.log('player hit!')
+                    console.log('you lose!')
                     player.opacity = 0
                     game.over = true
+                    createParticles({object: player, color: 'red'})
                     setTimeout(()=>{
                         game.active = false
-                    }, 1000)
+                    }, 3000)
                 }
     
-            //collision detection for projectiles and ateroids
+            //collision detection for projectiles and ateroids, projectile hits asteroid
             projectiles.forEach((projectile, j) =>{
                 if(projectile.position.x <= ARBorder && 
                     projectile.position.x  >= ALBorder && 
                     projectile.position.y  >= ATBorder && 
                     projectile.position.y  <= ABBorder){
+
+                        createParticles({object: asteroid, color: '#8e99a9'})
+                        
                         setTimeout(() =>{
                             console.log('hit!')
                             asteroids.splice(i,1)
