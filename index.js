@@ -171,16 +171,26 @@ class Asteroid{
         image.src = './img/asteroid_1.png'
 
         image.onload = () => {
-            const ratio = 1
+            const ratio = Math.random() * 1.2 + .5
             this.image = image
             this.width = image.width * ratio
             this.height = image.height * ratio
             this.velocity = Math.random() * 10 + 1
+            this.type = Math.random() * 10 
 
-            this.position = {
-                x: -this.width,
-                y: Math.random() * (canvas.height - this.height)
+            //if less than 7 comes from left side if greater than 7 comes from top
+            if(this.type <= 7){
+                this.position = {
+                    x: -this.width,
+                    y: Math.random() * (canvas.height - this.height)
+                }
+            }else{
+                this.position = {
+                    x: Math.random()* (canvas.width - this.width),
+                    y: -this.height - 200
+                }
             }
+            
             
             this.topBorder = this.position.y
             this.bottomBorder = this.position.y + this.height
@@ -204,7 +214,12 @@ class Asteroid{
     update(){
         if(this.image){
             this.draw()
-            this.position.x += this.velocity
+            if(this.type <= 7){
+                this.position.x += this.velocity
+            }else{
+                this.position.y += this.velocity
+            }
+            
         }
         
     }
@@ -220,12 +235,13 @@ const astCount = 0
 asteroids.push(new Asteroid())
 let game = {
     over: false,
-    active: false
+    active: true
 }
 
 
 
 function handleKeyInput(event) {
+    if (game.over) return 
     const { key, type } = event;
     const isKeyDown = type === 'keydown' ? true : false;
 
@@ -252,6 +268,7 @@ function handleKeyInput(event) {
 
 
 function animate(){
+    if (!game.active) return
     
     requestAnimationFrame(animate)
     c.fillStyle = 'black'
@@ -291,8 +308,11 @@ function animate(){
             const PTBorder = player.position.y
 
             //if asteroid goes off screen delete it
-            if(ALBorder > canvas.width){
-                asteroids.splice(i,1)
+            if(ALBorder > canvas.width || ABBorder > canvas.height){
+                setTimeout(()=>{
+                    asteroids.splice(i,1)
+                }, 0)
+                
             }else{
                 asteroid.update()
             }
@@ -303,6 +323,9 @@ function animate(){
                     console.log('player hit!')
                     player.opacity = 0
                     game.over = true
+                    setTimeout(()=>{
+                        game.active = false
+                    }, 1000)
                 }
     
             //collision detection for projectiles and ateroids
@@ -311,9 +334,11 @@ function animate(){
                     projectile.position.x  >= ALBorder && 
                     projectile.position.y  >= ATBorder && 
                     projectile.position.y  <= ABBorder){
-                        console.log('hit!')
-                        asteroids.splice(i,1)
-                        projectiles.splice(j, 1)
+                        setTimeout(() =>{
+                            console.log('hit!')
+                            asteroids.splice(i,1)
+                            projectiles.splice(j, 1)
+                        }, 0)
                     }
     
                 //positioning testing 
