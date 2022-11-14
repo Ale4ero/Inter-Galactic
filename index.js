@@ -220,7 +220,11 @@ function animate(){
 document.addEventListener('keydown', handleKeyInput);
 document.addEventListener('keyup', handleKeyInput);
 
-animate()
+document.querySelector('#startButton').addEventListener('click',()=>{
+    document.querySelector('#startScreen').style.display = 'none'
+    animate()
+})
+//animate()
 
 
 
