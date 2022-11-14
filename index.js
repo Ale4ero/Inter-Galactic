@@ -5,6 +5,7 @@ canvas.width = innerWidth
 canvas.height = innerHeight
 
 const player = new Player()
+
 const projectiles = []
 const asteroids = []
 const particles = []
@@ -13,10 +14,11 @@ let game = {
     over: false,
     active: true
 }
-asteroids.push(new Asteroid())
+
+//asteroids.push(new Asteroid())
 
 
-
+//function to handle input from keyboard
 function handleKeyInput(event) {
     if (game.over) return 
     const { key, type } = event;
@@ -41,9 +43,35 @@ function handleKeyInput(event) {
     if (key === 's'){
         player.reverse = isKeyDown
     }
-  }
+}
 
-function createParticles({object, color}){
+//background stars
+for(let i = 0; i < 100; i++){
+    let amount = Math.random() * 10
+    particles.push(new Particle({
+        position: {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height
+        }, 
+        velocity: {
+            x: -0.5,
+            y : 0
+        },
+        size: {
+            width: amount,
+            height: amount
+        },
+        color : '#9CD2EC',
+        fade: false,
+        star: true,
+        type: Math.random() * 3,    //randomise, if > 2 its a big star
+        opacity: 0.7
+
+    }))
+}
+
+//function to create particles
+function createParticles({object, color, fade, opacity, star, type }){
     for(let i = 0; i < 15; i++){
         let amount = Math.random() * 10
         particles.push(new Particle({
@@ -59,7 +87,11 @@ function createParticles({object, color}){
                 width: amount,
                 height: amount
             },
-            color : color || '#8e99a9'
+            color : color || '#8e99a9',
+            fade: true,
+            star: false,
+            type: 0,
+            opacity: 1
         }))
     }
 }
@@ -68,12 +100,17 @@ function animate(){
     if (!game.active) return
     
     requestAnimationFrame(animate)
-    c.fillStyle = 'black'
+    c.fillStyle = '#24162F'
     c.fillRect(0, 0, canvas.width, canvas.height)
     if (!game.over){
         player.movePlayer()
     }
     particles.forEach((particle, i) =>{
+        if (particle.position.x + particle.size.width < 0){
+            particle.position.x = canvas.width + particle.size.width
+            particle.position.y = Math.random() * canvas.height
+        }
+
         if (particle.opacity <= 0){
             setTimeout(()=>{
                 particles.splice(i, 1)
@@ -133,7 +170,7 @@ function animate(){
                     console.log('you lose!')
                     player.opacity = 0
                     game.over = true
-                    createParticles({object: player, color: 'red'})
+                    createParticles({object: player, color: 'red', fade: true})
                     setTimeout(()=>{
                         game.active = false
                     }, 3000)
@@ -146,7 +183,7 @@ function animate(){
                     projectile.position.y  >= ATBorder && 
                     projectile.position.y  <= ABBorder){
 
-                        createParticles({object: asteroid, color: '#8e99a9'})
+                        createParticles({object: asteroid, color: '#8e99a9', fade : true})
                         
                         setTimeout(() =>{
                             console.log('hit!')
