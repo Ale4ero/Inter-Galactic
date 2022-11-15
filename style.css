@@ -12,7 +12,7 @@
     z-index: 20;
 }
 
-.container{
+.menuContainer{
     position: relative;
     margin-top: 5rem;
     margin-left: auto;
@@ -22,7 +22,7 @@
 
 }
 
-.title{
+.menuTitle{
     display: block;
     margin: 0 auto;
     width: 100rem;
@@ -30,7 +30,7 @@
 
 }
 
-.selection{
+.menuSelection{
     margin-top: 7rem;
     margin-left: 7rem;
     margin-right: 7rem;
@@ -52,3 +52,5 @@
     border-bottom-left-radius: 5px;
     cursor: pointer;
 }
+
+

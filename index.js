@@ -20,16 +20,16 @@ let game = {
 
 //function to handle input from keyboard
 function handleKeyInput(event) {
-    if (game.over) return 
+    if (game.over) return;
     const { key, type } = event;
     const isKeyDown = type === 'keydown' ? true : false;
 
     if (key === 'a'){
-        player.rotatingLeft = isKeyDown
+        player.rotatingLeft = isKeyDown;
         //console.log('left')
     } 
     if (key === 'd'){
-        player.rotatingRight = isKeyDown
+        player.rotatingRight = isKeyDown;
         //console.log('right')
     } 
     if (key === 'w'){
@@ -46,8 +46,13 @@ function handleKeyInput(event) {
 }
 
 //background stars
-for(let i = 0; i < 100; i++){
-    let amount = Math.random() * 10
+for(let i = 0; i < 1000; i++) {
+    let amount = Math.random() * 10;
+    const randomXPosition = Math.random();
+    let randomFloat = Math.random();
+    if (randomFloat > 0.50) {
+        
+    }
     particles.push(new Particle({
         position: {
             x: Math.random() * canvas.width,
@@ -191,14 +196,6 @@ function animate(){
                             projectiles.splice(j, 1)
                         }, 0)
                     }
-    
-                //positioning testing 
-                // console.log('Asteroid Position:\nRB: X: '+ RB+"\n"+
-                // 'LB: X: '+ asteroid.position.x + '\n'+
-                // 'TB: Y: ' + asteroid.position.y + '\n'+
-                // 'BB: Y: '+ BB + '\n\n'+
-                // 'Pixel Position: \nPx: '+ projectile.position.x + '\n'+
-                // 'Py: '+ projectile.position.y)
             })
         }
         
