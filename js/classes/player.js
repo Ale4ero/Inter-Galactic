@@ -11,6 +11,7 @@ class Player{
         this.rotatingRight = false
         this.shooting = false
         this.reverse = false
+        this.boost = false
         this.opacity = 1
 
         const image = new Image()
@@ -55,7 +56,12 @@ class Player{
             c.lineTo(fireXPos + player.width*.5, fireYPos + Math.random() * 100)
             c.lineTo(fireXPos + player.width*.375, fireYPos)
             c.closePath()
-            c.fillStyle = 'orange'
+            if(this.boost){
+                c.fillStyle = 'blue'
+            } else{
+                c.fillStyle = 'orange'
+            }
+            
             c.fill()
         }
 
@@ -66,7 +72,7 @@ class Player{
 
         //if image is loaded we can move it
         if (this.image){
-            const thrust = 5
+            let thrust = 5
             const turnSpeed = 5
 
             this.draw()
@@ -104,19 +110,38 @@ class Player{
             }
 
             // Turning
-            if (this.rotatingLeft) this.angle -= turnSpeed * degToRad;
-            if (this.rotatingRight) this.angle += turnSpeed * degToRad;
+            if (this.rotatingLeft && !this.boost) this.angle -= turnSpeed * degToRad;
+            if (this.rotatingRight && !this.boost) this.angle += turnSpeed * degToRad;
+
+            if(this.engineOn && this.boost){
+                // this.velocity.x +=  Math.sin(this.angle)
+                // this.velocity.y -=  Math.cos(this.angle)
+                thrust = 15
+            }
 
             // Acceleration
             if (this.engineOn) {
-                this.velocity.x += (thrust / 100) * Math.sin(this.angle);
-                this.velocity.y -= (thrust / 100) * Math.cos(this.angle);
+                this.velocity.x += (thrust / 100) * (Math.sin(this.angle) *3.5)
+                this.velocity.y -= (thrust / 100) * (Math.cos(this.angle) *3.5)
+                if (this.boost){
+                    this.velocity.x  = Math.min(15, this.velocity.x)
+                    this.velocity.x  = Math.max(-15, this.velocity.x)
+                    this.velocity.y  = Math.min(15, this.velocity.y)
+                    this.velocity.y  = Math.max(-15, this.velocity.y)
+                }else{
+                    this.velocity.x  = Math.min(4, this.velocity.x)
+                    this.velocity.x  = Math.max(-4, this.velocity.x)
+                    this.velocity.y  = Math.min(4, this.velocity.y)
+                    this.velocity.y  = Math.max(-4, this.velocity.y)
+                }
+                
             }
+
 
             //Reverse
             if (this.reverse) {
-                this.velocity.x += -(thrust / 100) * Math.sin(this.angle);
-                this.velocity.y -= -(thrust / 100) * Math.cos(this.angle);
+                this.velocity.x += -(thrust / 100) * Math.sin(this.angle)
+                this.velocity.y -= -(thrust / 100) * Math.cos(this.angle)
             }
 
             //shooting
@@ -132,7 +157,10 @@ class Player{
                     }
                 }))
                 this.shooting = false
-            }   
+            } 
+            
+            console.log('Velocity X: '+ player.velocity.x + '\n'
+            + 'Velocity Y: ' + this.velocity.y)
         }
     }
 }

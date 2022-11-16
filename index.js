@@ -17,22 +17,22 @@ let game = {
 
 //asteroids.push(new Asteroid())
 
-
 //function to handle input from keyboard
 function handleKeyInput(event) {
     if (game.over) return;
-    const { key, type } = event;
+    const { key, type, shiftKey} = event;
     const isKeyDown = type === 'keydown' ? true : false;
 
-    if (key === 'a'){
+    
+    if (key === 'a' || key === 'A'){
         player.rotatingLeft = isKeyDown;
         //console.log('left')
     } 
-    if (key === 'd'){
+    if (key === 'd' || key === 'D'){
         player.rotatingRight = isKeyDown;
         //console.log('right')
     } 
-    if (key === 'w'){
+    if (key === 'w' || key === 'W'){
         player.engineOn = isKeyDown
         //console.log('up')
     } 
@@ -40,8 +40,12 @@ function handleKeyInput(event) {
         player.shooting = isKeyDown
         //console.log(projectiles)
     } 
-    if (key === 's'){
+    if (key === 's' || key === 'S'){
         player.reverse = isKeyDown
+    }
+    if (key === 'Shift'){
+        player.boost = isKeyDown
+
     }
 }
 
@@ -107,9 +111,7 @@ function animate(){
     requestAnimationFrame(animate)
     c.fillStyle = '#24162F'
     c.fillRect(0, 0, canvas.width, canvas.height)
-    if (!game.over){
-        player.movePlayer()
-    }
+    
     particles.forEach((particle, i) =>{
         if (particle.position.x + particle.size.width < 0){
             particle.position.x = canvas.width + particle.size.width
@@ -171,15 +173,24 @@ function animate(){
             //player collision with asteroids
             if (ARBorder >= PLBorder && ALBorder <= PRBorder &&
                 ABBorder >= PTBorder && ATBorder <= PBBorder){
-                    console.log('player hit!')
-                    console.log('you lose!')
-                    player.opacity = 0
-                    game.over = true
-                    createParticles({object: player, color: 'red', fade: true})
-                    setTimeout(()=>{
-                        game.active = false
-                    }, 3000)
-                }
+                    if(player.boost && player.engineOn){
+                        createParticles({object: asteroid, color: '#8e99a9', fade : true})
+                        setTimeout(() =>{
+                            console.log('ram hit!')
+                            asteroids.splice(i,1)
+                        }, 0)
+                    }else{
+                        console.log('player hit!')
+                        console.log('you lose!')
+                        player.opacity = 0
+                        game.over = true
+                        createParticles({object: player, color: 'red', fade: true})
+                        setTimeout(()=>{
+                            game.active = false
+                        }, 3000)
+                    }
+                    
+            }
     
             //collision detection for projectiles and ateroids, projectile hits asteroid
             projectiles.forEach((projectile, j) =>{
@@ -189,7 +200,6 @@ function animate(){
                     projectile.position.y  <= ABBorder){
 
                         createParticles({object: asteroid, color: '#8e99a9', fade : true})
-                        
                         setTimeout(() =>{
                             console.log('hit!')
                             asteroids.splice(i,1)
@@ -203,9 +213,14 @@ function animate(){
     })
 
     //max 3 asteroids 
-    if (asteroids.length < 5){
-        //console.log(asteroids)
+    if (asteroids.length < 3){
+        console.log(asteroids)
         asteroids.push(new Asteroid())
+    }
+
+    //as long as game is not over mover player
+    if (!game.over){
+        player.movePlayer()
     }
     
     //asteroid collision

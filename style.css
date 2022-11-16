@@ -8,7 +8,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: #350C45;
+    background: #3B1C47;
     z-index: 20;
 }
 
@@ -19,24 +19,25 @@
     margin-right: auto;
     margin-bottom: 0;
     width: 88%;
+    max-width: 1700px;
 
 }
 
 .menuTitle{
-    display: block;
+    display: block; 
     margin: 0 auto;
-    width: 100rem;
-    height: auto;
-
+    width: 100%;
+    margin-top: 8rem;
 }
 
 .menuSelection{
     margin-top: 7rem;
-    margin-left: 7rem;
-    margin-right: 7rem;
+    margin-left: 5rem;
+    margin-right: 70rem;
+    width: 50%
 }
 
-.button{
+.btn{
     font-family: 'VT323', monospace;
     color: white;
     display: block;
@@ -44,13 +45,16 @@
     border: none;
     margin: 2rem;
     text-decoration: none;
-    font-size: 5rem;
-    padding: .1rem 2rem;
-    border-top-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-right-radius: 5px;
-    border-bottom-left-radius: 5px;
+    font-size: 7rem;
+    padding: .01em .5em;
+    border-top-left-radius: .3em;
+    border-bottom-right-radius: .3em;
+    border-top-right-radius: .13em;
+    border-bottom-left-radius: .13em;
     cursor: pointer;
 }
 
+.btn:hover{
+    background-color: #333333;
+}
 
