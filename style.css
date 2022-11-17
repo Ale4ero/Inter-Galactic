@@ -27,7 +27,7 @@
     display: block; 
     margin: 0 auto;
     width: 100%;
-    margin-top: 8rem;
+    margin-top: 6rem;
 }
 
 .menuSelection{
@@ -37,6 +37,14 @@
     width: 50%
 }
 
+.row{
+    display: flex;
+    gap: 25rem;
+}
+
+.menuShip{
+    width: 30vw;
+}
 .btn{
     font-family: 'VT323', monospace;
     color: white;
@@ -45,7 +53,7 @@
     border: none;
     margin: 2rem;
     text-decoration: none;
-    font-size: 7rem;
+    font-size: 5vw;
     padding: .01em .5em;
     border-top-left-radius: .3em;
     border-bottom-right-radius: .3em;
