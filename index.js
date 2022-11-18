@@ -4,15 +4,50 @@ const c = canvas.getContext('2d')
 canvas.width = innerWidth
 canvas.height = innerHeight
 
-const player = new Player()
-
-const projectiles = []
-const asteroids = []
-const particles = []
-const astCount = 0
+let player = new Player()
+let projectiles = []
+let asteroids = []
+let particles = []
+let astCount = 0
 let game = {
     over: false,
     active: true
+}
+
+function init(){
+    astCount = 0
+    player = new Player()
+    projectiles = []
+    asteroids = []
+    particles = []
+    game = {
+        over: false,
+        active: true
+    }
+    //background stars
+    for(let i = 0; i < 1000; i++) {
+        let amount = Math.random() * 10;
+        particles.push(new Particle({
+            position: {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height
+            }, 
+            velocity: {
+                x: -0.5,
+                y : 0
+            },
+            size: {
+                width: amount,
+                height: amount
+            },
+            color : '#9CD2EC',
+            fade: false,
+            star: true,
+            type: Math.random() * 3,    //randomise, if > 2 its a big star
+            opacity: 0.7
+
+        }))
+    }
 }
 
 //asteroids.push(new Asteroid())
@@ -49,35 +84,7 @@ function handleKeyInput(event) {
     }
 }
 
-//background stars
-for(let i = 0; i < 1000; i++) {
-    let amount = Math.random() * 10;
-    const randomXPosition = Math.random();
-    let randomFloat = Math.random();
-    if (randomFloat > 0.50) {
-        
-    }
-    particles.push(new Particle({
-        position: {
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height
-        }, 
-        velocity: {
-            x: -0.5,
-            y : 0
-        },
-        size: {
-            width: amount,
-            height: amount
-        },
-        color : '#9CD2EC',
-        fade: false,
-        star: true,
-        type: Math.random() * 3,    //randomise, if > 2 its a big star
-        opacity: 0.7
 
-    }))
-}
 
 //function to create particles
 function createParticles({object, color, fade, opacity, star, type }){
@@ -187,7 +194,8 @@ function animate(){
                         createParticles({object: player, color: 'red', fade: true})
                         setTimeout(()=>{
                             game.active = false
-                        }, 3000)
+                            document.querySelector('#restartScreen').style.display = 'block'
+                        }, 2000)
                     }
                     
             }
@@ -233,10 +241,21 @@ document.addEventListener('keydown', handleKeyInput);
 document.addEventListener('keyup', handleKeyInput);
 
 document.querySelector('#startButton').addEventListener('click',()=>{
+    audio.backgroundMusic.play()
     document.querySelector('#startScreen').style.display = 'none'
+    init()
     animate()
 })
-//animate()
+
+document.querySelector('#restartButton').addEventListener('click',()=>{
+    document.querySelector('#restartScreen').style.display = 'none'
+    init()
+    animate()
+})
+
+
+
+
 
 
 

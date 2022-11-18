@@ -1,5 +1,6 @@
 *{
     margin: 0;
+    box-sizing: border-box;
 }
 
 .menu{
@@ -45,6 +46,47 @@
 .menuShip{
     width: 30vw;
 }
+
+.screen{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.restartScreen{
+    position: absolute;
+    background-color: #3B1C47;
+    border: solid #E45A85 15px;
+    border-radius: 10px;
+    z-index: 30;
+    width: 70%;
+    display: none;
+}
+
+.restartContainer{
+    position: relative;
+    margin: 3rem auto;
+    width: 80%;
+}
+
+.gameOverTitle{
+    margin: 0 auto;
+    width: 100%;
+}
+
+.restartSelection{
+    display: block;
+    margin: 3rem auto;
+    width: 40%;
+    justify-items: center;
+}
+
 .btn{
     font-family: 'VT323', monospace;
     color: white;
@@ -60,6 +102,12 @@
     border-top-right-radius: .13em;
     border-bottom-left-radius: .13em;
     cursor: pointer;
+}
+
+.restartContainer .btn{
+    font-size: 3vw;
+    margin: 2rem auto;
+    padding: 0.1rem .5rem;
 }
 
 .btn:hover{

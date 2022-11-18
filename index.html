@@ -23,13 +23,19 @@
     </div>
     
 </div>
-
-<div id = 'gameOverScreen' class="restartMenu">
-    <div class="restartContainer">
-        <img src="" alt="">
+<div class="screen">
+    <div id = "restartScreen" class="restartScreen">
+        <div class="restartContainer">
+            <img src="./img/gameOverTitle.png" alt="" class="gameOverTitle">
+            <div class="restartSelection">
+                <button id="restartButton" type="button" class="btn">RESTART</button>
+                <button type="button" class="btn">GARAGE</button>
+                <button type="button" class="btn">HOME</button>
+            </div>
+        </div>
     </div>
-
 </div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -37,6 +43,7 @@
 <script src="./js/classes/asteroid.js"></script>
 <script src="./js/classes/projectile.js"></script>
 <script src="./js/classes/particle.js"></script>
+<script src="./audio.js"></script>
 <script src="./index.js"></script>
 <link rel="stylesheet" href="./style.css">
 
