@@ -3,6 +3,25 @@
     box-sizing: border-box;
 }
 
+.preGameScreen{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #3B1C47;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preGameScreen h2{
+    font-family: 'VT323', monospace;
+    color: white;
+    font-size: 2.5vw;
+    animation: animate 1.5s linear infinite;
+}
+
 .menu{
     position:absolute;
     top: 0;
@@ -11,6 +30,7 @@
     left: 0;
     background: #3B1C47;
     z-index: 20;
+    display: none;
 }
 
 .menuContainer{
@@ -53,7 +73,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
 }
@@ -66,7 +86,6 @@
     border-radius: 10px;
     z-index: 30;
     width: 70%;
-    display: none;
 }
 
 .restartContainer{
@@ -112,5 +131,17 @@
 
 .btn:hover{
     background-color: #333333;
+}
+
+@keyframes animate{
+    0%{
+        opacity: 0.1;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0.1;
+    }
 }
 

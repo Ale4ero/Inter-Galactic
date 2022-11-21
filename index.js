@@ -20,7 +20,7 @@ function init(){
     projectiles = []
     asteroids = []
     particles = []
-    game = {
+     game = {
         over: false,
         active: true
     }
@@ -50,7 +50,6 @@ function init(){
     }
 }
 
-//asteroids.push(new Asteroid())
 
 //function to handle input from keyboard
 function handleKeyInput(event) {
@@ -187,14 +186,14 @@ function animate(){
                             asteroids.splice(i,1)
                         }, 0)
                     }else{
-                        console.log('player hit!')
-                        console.log('you lose!')
+                        // console.log('player hit!')
+                        // console.log('you lose!')
                         player.opacity = 0
                         game.over = true
                         createParticles({object: player, color: 'red', fade: true})
                         setTimeout(()=>{
                             game.active = false
-                            document.querySelector('#restartScreen').style.display = 'block'
+                            document.querySelector('#restartScreen').style.display = 'flex'
                         }, 2000)
                     }
                     
@@ -209,7 +208,7 @@ function animate(){
 
                         createParticles({object: asteroid, color: '#8e99a9', fade : true})
                         setTimeout(() =>{
-                            console.log('hit!')
+                            //console.log('hit!')
                             asteroids.splice(i,1)
                             projectiles.splice(j, 1)
                         }, 0)
@@ -221,8 +220,8 @@ function animate(){
     })
 
     //max 3 asteroids 
-    if (asteroids.length < 3){
-        console.log(asteroids)
+    if (asteroids.length < 6){
+        //console.log(asteroids)
         asteroids.push(new Asteroid())
     }
 
@@ -230,18 +229,56 @@ function animate(){
     if (!game.over){
         player.movePlayer()
     }
-    
-    //asteroid collision
 
 
+
+}
+
+//background music playlist
+var list = [
+    './audio/Everlong_FooFighters.mp3', 
+    './audio/Yolo_TheStrokes.mp3', 
+    './audio/HereComesYourMan_Pixes.mp3', 
+    './audio/HardToExplain_TheStrokes.mp3'
+]
+
+function autoplay(i, list){
+    var sound = new Howl({
+        src: [list[i]],
+        preload: true,
+        onend: function(){
+            if((i+1) == list.length){
+                autoplay(0, list)
+            }else{
+                autoplay(i + 1, list)
+            }
+        }
+    })
+    sound.play();
 }
 
 
 document.addEventListener('keydown', handleKeyInput);
 document.addEventListener('keyup', handleKeyInput);
 
+let startScreen = true
+
+
+document.body.addEventListener('keydown',(e)=>{
+    console.log('prescreen key down')
+    console.log(e)
+    autoplay(0, list)
+    if (startScreen){
+        document.querySelector('#preScreen').style.display = 'none'
+        document.querySelector('#startScreen').style.display = 'block'
+        startScreen = false
+    }
+    
+})
+
+
+
 document.querySelector('#startButton').addEventListener('click',()=>{
-    audio.backgroundMusic.play()
     document.querySelector('#startScreen').style.display = 'none'
     init()
     animate()
@@ -253,6 +290,18 @@ document.querySelector('#restartButton').addEventListener('click',()=>{
     animate()
 })
 
+document.querySelector('#restartButton').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+document.querySelector('#optionsButton').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+document.querySelector('#garageButton').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+document.querySelector('#startButton').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
 
 
 

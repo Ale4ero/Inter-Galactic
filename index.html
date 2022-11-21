@@ -4,6 +4,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 
+<div id="preScreen" class="preGameScreen">
+   <body>
+        <h2>Press Any Key To Start</h2>
+   </body>
+    
+ 
+</div>
 
 <div id="startScreen" class="menu">
     <div class="menuContainer">
@@ -12,8 +19,8 @@
             <div class="row">
                 <div class="col">
                     <button id="startButton" type="button" class="btn">START</button>
-                    <button type="button" class="btn">GARAGE</button>
-                    <button type="button" class="btn">OPTIONS</button>
+                    <button id="garageButton" type="button" class="btn">GARAGE</button>
+                    <button id="optionsButton" type="button" class="btn">OPTIONS</button>
                 </div>
                 <div class="col">
                     <img src="./img/menuScreenShip.png" alt="" class="menuShip">
@@ -23,8 +30,8 @@
     </div>
     
 </div>
-<div class="screen">
-    <div id = "restartScreen" class="restartScreen">
+<div class="screen" id = "restartScreen">
+    <div  class="restartScreen">
         <div class="restartContainer">
             <img src="./img/gameOverTitle.png" alt="" class="gameOverTitle">
             <div class="restartSelection">

@@ -124,10 +124,10 @@ class Player{
                 this.velocity.x += (thrust / 100) * (Math.sin(this.angle) *3.5)
                 this.velocity.y -= (thrust / 100) * (Math.cos(this.angle) *3.5)
                 if (this.boost){
-                    this.velocity.x  = Math.min(15, this.velocity.x)
-                    this.velocity.x  = Math.max(-15, this.velocity.x)
-                    this.velocity.y  = Math.min(15, this.velocity.y)
-                    this.velocity.y  = Math.max(-15, this.velocity.y)
+                    this.velocity.x  = Math.min(10, this.velocity.x)
+                    this.velocity.x  = Math.max(-10, this.velocity.x)
+                    this.velocity.y  = Math.min(10, this.velocity.y)
+                    this.velocity.y  = Math.max(-10, this.velocity.y)
                 }else{
                     this.velocity.x  = Math.min(4, this.velocity.x)
                     this.velocity.x  = Math.max(-4, this.velocity.x)
