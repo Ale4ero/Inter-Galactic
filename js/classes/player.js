@@ -159,8 +159,8 @@ class Player{
                 this.shooting = false
             } 
             
-            console.log('Velocity X: '+ player.velocity.x + '\n'
-            + 'Velocity Y: ' + this.velocity.y)
+            // console.log('Velocity X: '+ player.velocity.x + '\n'
+            // + 'Velocity Y: ' + this.velocity.y)
         }
     }
 }

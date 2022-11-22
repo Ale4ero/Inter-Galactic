@@ -235,27 +235,27 @@ function animate(){
 }
 
 //background music playlist
-var list = [
-    './audio/Everlong_FooFighters.mp3', 
-    './audio/Yolo_TheStrokes.mp3', 
-    './audio/HereComesYourMan_Pixes.mp3', 
-    './audio/HardToExplain_TheStrokes.mp3'
-]
+// var list = [
+//     './audio/Everlong_FooFighters.mp3', 
+//     './audio/Yolo_TheStrokes.mp3', 
+//     './audio/HereComesYourMan_Pixes.mp3', 
+//     './audio/HardToExplain_TheStrokes.mp3'
+// ]
 
-function autoplay(i, list){
-    var sound = new Howl({
-        src: [list[i]],
-        preload: true,
-        onend: function(){
-            if((i+1) == list.length){
-                autoplay(0, list)
-            }else{
-                autoplay(i + 1, list)
-            }
-        }
-    })
-    sound.play();
-}
+// function autoplay(i, list){
+//     var sound = new Howl({
+//         src: [list[i]],
+//         preload: true,
+//         onend: function(){
+//             if((i+1) == list.length){
+//                 autoplay(0, list)
+//             }else{
+//                 autoplay(i + 1, list)
+//             }
+//         }
+//     })
+//     sound.play();
+// }
 
 
 document.addEventListener('keydown', handleKeyInput);
@@ -265,12 +265,11 @@ let startScreen = true
 
 
 document.body.addEventListener('keydown',(e)=>{
-    console.log('prescreen key down')
-    console.log(e)
-    autoplay(0, list)
+    //autoplay(0, list)
     if (startScreen){
         document.querySelector('#preScreen').style.display = 'none'
         document.querySelector('#startScreen').style.display = 'block'
+        audio.backgroundMusic.play()
         startScreen = false
     }
     
@@ -289,6 +288,12 @@ document.querySelector('#restartButton').addEventListener('click',()=>{
     init()
     animate()
 })
+document.querySelector('#homeButton').addEventListener('click',()=>{
+    document.querySelector('#startScreen').style.display = 'block'
+    document.querySelector('#restartScreen').style.display = 'none'
+
+})
+
 
 document.querySelector('#restartButton').addEventListener('mouseover',()=>{
     audio.selectSound.play()

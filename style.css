@@ -131,6 +131,7 @@
 
 .btn:hover{
     background-color: #333333;
+    scale: 1.25;
 }
 
 @keyframes animate{
