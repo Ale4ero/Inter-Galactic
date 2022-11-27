@@ -281,16 +281,19 @@ document.querySelector('#startButton').addEventListener('click',()=>{
     document.querySelector('#startScreen').style.display = 'none'
     init()
     animate()
+    audio.pressedSound.play()
 })
 
 document.querySelector('#restartButton').addEventListener('click',()=>{
     document.querySelector('#restartScreen').style.display = 'none'
     init()
     animate()
+    audio.pressedSound.play()
 })
 document.querySelector('#homeButton').addEventListener('click',()=>{
     document.querySelector('#startScreen').style.display = 'block'
     document.querySelector('#restartScreen').style.display = 'none'
+    audio.pressedSound.play()
 
 })
 

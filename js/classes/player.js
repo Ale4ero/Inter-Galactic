@@ -135,6 +135,7 @@ class Player{
                     this.velocity.y  = Math.max(-4, this.velocity.y)
                 }
                 
+                
             }
 
 

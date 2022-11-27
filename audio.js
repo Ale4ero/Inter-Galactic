@@ -15,5 +15,15 @@ const audio = {
     selectSound: new Howl({
         src: './audio/menuSelect.mp3',
         rate: 2.0 
-    })
+    }),
+    pressedSound: new Howl({
+        src: './audio/pressedBtn.mp3',
+        volume: 1
+    }),
+    flameSound: new Howl({
+        src: './audio/flame.mp3',
+        volume: .02
+    }),
+    
+
 }
