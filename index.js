@@ -234,34 +234,20 @@ function animate(){
 
 }
 
-//background music playlist
-// var list = [
-//     './audio/Everlong_FooFighters.mp3', 
-//     './audio/Yolo_TheStrokes.mp3', 
-//     './audio/HereComesYourMan_Pixes.mp3', 
-//     './audio/HardToExplain_TheStrokes.mp3'
-// ]
-
-// function autoplay(i, list){
-//     var sound = new Howl({
-//         src: [list[i]],
-//         preload: true,
-//         onend: function(){
-//             if((i+1) == list.length){
-//                 autoplay(0, list)
-//             }else{
-//                 autoplay(i + 1, list)
-//             }
-//         }
-//     })
-//     sound.play();
-// }
-
 
 document.addEventListener('keydown', handleKeyInput);
 document.addEventListener('keyup', handleKeyInput);
 
 let startScreen = true
+
+var songs = [
+    './audio/Yolo_TheStrokes.mp3',
+    './audio/Everlong_FooFighters.mp3',
+    './audio/HardToExplain_TheStrokes.mp3',
+    './audio/RoomOnFire_TheStrokes.mp3'
+]
+
+
 
 
 document.body.addEventListener('keydown',(e)=>{
@@ -269,8 +255,10 @@ document.body.addEventListener('keydown',(e)=>{
     if (startScreen){
         document.querySelector('#preScreen').style.display = 'none'
         document.querySelector('#startScreen').style.display = 'block'
-        audio.backgroundMusic.play()
+        //audio.backgroundMusic.play()
         startScreen = false
+
+        autoplay(Math.floor(Math.random() * songs.length), songs)
     }
     
 })
@@ -310,6 +298,14 @@ document.querySelector('#garageButton').addEventListener('mouseover',()=>{
 document.querySelector('#startButton').addEventListener('mouseover',()=>{
     audio.selectSound.play()
 })
+document.querySelector('#homeButton').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+document.querySelector('#rsGarageButton').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+
+
 
 
 

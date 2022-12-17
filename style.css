@@ -60,11 +60,13 @@
 
 .row{
     display: flex;
-    gap: 25rem;
+    gap: 15vw;
 }
 
 .menuShip{
+    position: absolute;
     width: 30vw;
+    margin-right: 10rem;
 }
 
 .screen{

@@ -4,13 +4,9 @@ var songFile = songs[Math.floor(Math.random() * songs.length)]
 const audio = {
     backgroundMusic: new Howl({
         src: songFile,
-        loop: true,
+        loop: false,
         volume: 0.1,
-        html5: true,
-        onend: function(){
-            songFile = songs[Math.floor(Math.random() * songs.length)]
-            
-        }
+        html5: true
     }),
     selectSound: new Howl({
         src: './audio/menuSelect.mp3',
@@ -26,4 +22,20 @@ const audio = {
     }),
     
 
+}
+
+function autoplay(i, list) {
+    console.log('hello i am working!')
+    var sound = new Howl({
+        src: list[i],
+        volume: 0.1,
+        onend: function () {
+            if ((i + 1) == list.length) {
+                autoplay(0, list)
+            } else {
+                autoplay(i + 1, list)
+            }
+        }
+    })
+    sound.play();
 }
