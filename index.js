@@ -238,8 +238,10 @@ function animate(){
 document.addEventListener('keydown', handleKeyInput);
 document.addEventListener('keyup', handleKeyInput);
 
+//start screen appears so that user inputs into browser and music can start
 let startScreen = true
 
+//list of songs
 var songs = [
     './audio/Yolo_TheStrokes.mp3',
     './audio/Everlong_FooFighters.mp3',
@@ -251,7 +253,6 @@ var songs = [
 
 
 document.body.addEventListener('keydown',(e)=>{
-    //autoplay(0, list)
     if (startScreen){
         document.querySelector('#preScreen').style.display = 'none'
         document.querySelector('#startScreen').style.display = 'block'
@@ -260,7 +261,6 @@ document.body.addEventListener('keydown',(e)=>{
 
         autoplay(Math.floor(Math.random() * songs.length), songs)
     }
-    
 })
 
 
