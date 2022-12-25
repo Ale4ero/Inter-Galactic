@@ -9,6 +9,7 @@ let projectiles = []
 let asteroids = []
 let particles = []
 let astCount = 0
+let hit = false
 let game = {
     over: false,
     active: true
@@ -20,6 +21,7 @@ function init(){
     projectiles = []
     asteroids = []
     particles = []
+    hit = false
      game = {
         over: false,
         active: true
@@ -111,10 +113,22 @@ function createParticles({object, color, fade, opacity, star, type }){
     }
 }
 
+let fps = 60
+let fpsInterval = 1000 / fps
+
+let msPrev = window.performance.now()
+
 function animate(){
     if (!game.active) return
     
     requestAnimationFrame(animate)
+    const  msNow = window.performance.now()
+    const elapsed = msNow - msPrev
+
+    if (elapsed < fpsInterval) return
+
+    msPrev = msNow - (elapsed % fpsInterval)
+
     c.fillStyle = '#24162F'
     c.fillRect(0, 0, canvas.width, canvas.height)
     
@@ -149,7 +163,9 @@ function animate(){
         else{
             projectile.update()
         }
-    })    
+    })  
+    
+    
     
     //garbage collecting for asteroids
     asteroids.forEach((asteroid, i)=>{
@@ -175,7 +191,7 @@ function animate(){
             }else{
                 asteroid.update()
             }
-
+            
             //player collision with asteroids
             if (ARBorder >= PLBorder && ALBorder <= PRBorder &&
                 ABBorder >= PTBorder && ATBorder <= PBBorder){
@@ -188,9 +204,19 @@ function animate(){
                     }else{
                         // console.log('player hit!')
                         // console.log('you lose!')
+                        
                         player.opacity = 0
                         game.over = true
                         createParticles({object: player, color: 'red', fade: true})
+                        //FIX THIS ASAP SOUND, LOOPING
+                        
+                        if (!hit){
+                            audio.bombSound.play()
+                            audio.gameOver.play()
+                            hit = true
+                        }
+                        
+                        
                         setTimeout(()=>{
                             game.active = false
                             document.querySelector('#restartScreen').style.display = 'flex'
@@ -209,13 +235,14 @@ function animate(){
                         createParticles({object: asteroid, color: '#8e99a9', fade : true})
                         setTimeout(() =>{
                             //console.log('hit!')
+                            audio.bombSound.play()
                             asteroids.splice(i,1)
                             projectiles.splice(j, 1)
                         }, 0)
                     }
+
             })
         }
-        
 
     })
 
@@ -259,7 +286,7 @@ document.body.addEventListener('keydown',(e)=>{
         //audio.backgroundMusic.play()
         startScreen = false
 
-        autoplay(Math.floor(Math.random() * songs.length), songs)
+        playlist(Math.floor(Math.random() * songs.length), songs)
     }
 })
 

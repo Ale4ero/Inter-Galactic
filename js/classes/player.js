@@ -134,8 +134,8 @@ class Player{
                     this.velocity.y  = Math.min(4, this.velocity.y)
                     this.velocity.y  = Math.max(-4, this.velocity.y)
                 }
-                
-                
+                                               
+                  
             }
 
 
@@ -147,6 +147,7 @@ class Player{
 
             //shooting
             if(this.shooting){
+                audio.laser.play()
                 projectiles.push(new Projectile({
                     position: {
                         x: player.position.x + player.width / 2,
