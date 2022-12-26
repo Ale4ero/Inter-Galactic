@@ -10,11 +10,22 @@ let asteroids = []
 let particles = []
 let astCount = 0
 let hit = false
+//prescreen appears so that user inputs into browser and music can start
+let preScreen = true
 let game = {
     over: false,
     active: true
 }
 
+//list of songs
+var songs = [
+    './audio/Yolo_TheStrokes.mp3',
+    './audio/Everlong_FooFighters.mp3',
+    './audio/HardToExplain_TheStrokes.mp3',
+    './audio/RoomOnFire_TheStrokes.mp3'
+]
+
+//function that initializes game
 function init(){
     astCount = 0
     player = new Player()
@@ -22,7 +33,7 @@ function init(){
     asteroids = []
     particles = []
     hit = false
-     game = {
+    game = {
         over: false,
         active: true
     }
@@ -55,22 +66,19 @@ function init(){
 
 //function to handle input from keyboard
 function handleKeyInput(event) {
-    if (game.over) return;
-    const { key, type, shiftKey} = event;
-    const isKeyDown = type === 'keydown' ? true : false;
+    if (game.over) return
+    const { key, type, shiftKey} = event
+    const isKeyDown = type === 'keydown' ? true : false
 
     
     if (key === 'a' || key === 'A'){
-        player.rotatingLeft = isKeyDown;
-        //console.log('left')
+        player.rotatingLeft = isKeyDown
     } 
     if (key === 'd' || key === 'D'){
-        player.rotatingRight = isKeyDown;
-        //console.log('right')
+        player.rotatingRight = isKeyDown
     } 
     if (key === 'w' || key === 'W'){
         player.engineOn = isKeyDown
-        //console.log('up')
     } 
     if (key === ' '){
         player.shooting = isKeyDown
@@ -81,7 +89,6 @@ function handleKeyInput(event) {
     }
     if (key === 'Shift'){
         player.boost = isKeyDown
-
     }
 }
 
@@ -113,11 +120,14 @@ function createParticles({object, color, fade, opacity, star, type }){
     }
 }
 
+//consistent frame rate, 60fps
 let fps = 60
 let fpsInterval = 1000 / fps
 
 let msPrev = window.performance.now()
 
+
+//main animation function
 function animate(){
     if (!game.active) return
     
@@ -132,20 +142,21 @@ function animate(){
     c.fillStyle = '#24162F'
     c.fillRect(0, 0, canvas.width, canvas.height)
     
+    //when stars go off screen draw new ones 
     particles.forEach((particle, i) =>{
         if (particle.position.x + particle.size.width < 0){
             particle.position.x = canvas.width + particle.size.width
             particle.position.y = Math.random() * canvas.height
         }
 
+        //when opacity is gone remove stars otherwise update the stars
         if (particle.opacity <= 0){
             setTimeout(()=>{
                 particles.splice(i, 1)
             }, 0) 
         } else{
             particle.update()
-        }
-        
+        }  
     })
     
 
@@ -186,8 +197,7 @@ function animate(){
             if(ALBorder > canvas.width || ATBorder > canvas.height){
                 setTimeout(()=>{
                     asteroids.splice(i,1)
-                }, 0)
-                
+                }, 0) 
             }else{
                 asteroid.update()
             }
@@ -208,15 +218,15 @@ function animate(){
                         player.opacity = 0
                         game.over = true
                         createParticles({object: player, color: 'red', fade: true})
-                        //FIX THIS ASAP SOUND, LOOPING
                         
+                        //only play sound first time collision is detected 
                         if (!hit){
                             audio.bombSound.play()
                             audio.gameOver.play()
                             hit = true
                         }
                         
-                        
+                        //set game not active and display restart screen
                         setTimeout(()=>{
                             game.active = false
                             document.querySelector('#restartScreen').style.display = 'flex'
@@ -257,35 +267,23 @@ function animate(){
         player.movePlayer()
     }
 
-
-
 }
 
 
 document.addEventListener('keydown', handleKeyInput);
 document.addEventListener('keyup', handleKeyInput);
 
-//start screen appears so that user inputs into browser and music can start
-let startScreen = true
-
-//list of songs
-var songs = [
-    './audio/Yolo_TheStrokes.mp3',
-    './audio/Everlong_FooFighters.mp3',
-    './audio/HardToExplain_TheStrokes.mp3',
-    './audio/RoomOnFire_TheStrokes.mp3'
-]
 
 
 
 
+//if prescreen is on and key is pressed display start screen
 document.body.addEventListener('keydown',(e)=>{
-    if (startScreen){
+    if (preScreen){
         document.querySelector('#preScreen').style.display = 'none'
         document.querySelector('#startScreen').style.display = 'block'
-        //audio.backgroundMusic.play()
-        startScreen = false
-
+        preScreen = false
+        //can now start playlist and sound affects
         playlist(Math.floor(Math.random() * songs.length), songs)
     }
 })
@@ -309,7 +307,6 @@ document.querySelector('#homeButton').addEventListener('click',()=>{
     document.querySelector('#startScreen').style.display = 'block'
     document.querySelector('#restartScreen').style.display = 'none'
     audio.pressedSound.play()
-
 })
 
 
