@@ -260,7 +260,7 @@ function animate(){
     })
 
     //max 3 asteroids 
-    if (asteroids.length < 6){
+    if (asteroids.length < 5){
         //console.log(asteroids)
         asteroids.push(new Asteroid())
     }

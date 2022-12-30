@@ -129,13 +129,22 @@ class Player{
                     this.velocity.y  = Math.min(10, this.velocity.y)
                     this.velocity.y  = Math.max(-10, this.velocity.y)
                 }else{
-                    this.velocity.x  = Math.min(4, this.velocity.x)
-                    this.velocity.x  = Math.max(-4, this.velocity.x)
-                    this.velocity.y  = Math.min(4, this.velocity.y)
-                    this.velocity.y  = Math.max(-4, this.velocity.y)
+                    this.velocity.x  = Math.min(5, this.velocity.x)
+                    this.velocity.x  = Math.max(-5, this.velocity.x)
+                    this.velocity.y  = Math.min(5, this.velocity.y)
+                    this.velocity.y  = Math.max(-5, this.velocity.y)
                 }
                                                
                   
+            }
+            else{
+                
+                this.velocity.x  = Math.min(1.5, this.velocity.x)
+                this.velocity.x  = Math.max(-1.5, this.velocity.x)
+                this.velocity.y  = Math.min(1.5, this.velocity.y)
+                this.velocity.y  = Math.max(-1.5, this.velocity.y)
+                
+                
             }
 
 
@@ -161,8 +170,8 @@ class Player{
                 this.shooting = false
             } 
             
-            // console.log('Velocity X: '+ player.velocity.x + '\n'
-            // + 'Velocity Y: ' + this.velocity.y)
+             console.log('Velocity X: '+ player.velocity.x + '\n'
+             + 'Velocity Y: ' + this.velocity.y)
         }
     }
 }
