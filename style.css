@@ -133,6 +133,7 @@
     font-size: 3vw;
     margin: 2rem auto;
     padding: 0.1rem .5rem;
+    border-radius: .2em;
 }
 
 .btn:hover{
