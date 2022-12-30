@@ -72,8 +72,8 @@ class Player{
 
         //if image is loaded we can move it
         if (this.image){
-            let thrust = 5
-            const turnSpeed = 5
+            let thrust = 7
+            const turnSpeed = 6
 
             this.draw()
             this.position.x += this.velocity.x

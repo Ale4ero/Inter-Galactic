@@ -68,8 +68,8 @@
 }
 
 .menuShip{
-    position: absolute;
-    width: 42vw;
+    position: fixed;
+    width: 35vw;
     margin-right: 10rem;
 }
 
@@ -121,9 +121,9 @@
     margin: 2rem;
     text-decoration: none;
     font-size: 5vw;
-    padding: .01em 1em .03em .2em;
+    padding: .01em .7em .03em .2em;
     border-top-left-radius: .3em;
-    border-bottom-right-radius: .3em;
+    border-bottom-right-radius: .9em;
     border-top-right-radius: .13em;
     border-bottom-left-radius: .13em;
     cursor: pointer;

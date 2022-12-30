@@ -219,20 +219,23 @@ function animate(){
                         game.over = true
                         createParticles({object: player, color: 'red', fade: true})
                         
-                        //only play sound first time collision is detected 
+                        //ensure game only detects colllision once instead of multiple times in loop
                         if (!hit){
+                            //play sounds
                             audio.bombSound.play()
                             audio.gameOver.play()
+
+                            //set game not active and display restart screen after 2 seconds
+                            setTimeout(()=>{
+                                console.log("player hit game over!")
+                                game.active = false
+                                document.querySelector('#restartScreen').style.display = 'flex'
+                            }, 2000)
+
                             hit = true
-                        }
-                        
-                        //set game not active and display restart screen
-                        setTimeout(()=>{
-                            game.active = false
-                            document.querySelector('#restartScreen').style.display = 'flex'
-                        }, 2000)
-                    }
-                    
+
+                        }  
+                    }          
             }
     
             //collision detection for projectiles and ateroids, projectile hits asteroid
@@ -298,10 +301,11 @@ document.querySelector('#startButton').addEventListener('click',()=>{
 })
 
 document.querySelector('#restartButton').addEventListener('click',()=>{
-    document.querySelector('#restartScreen').style.display = 'none'
+    game.active = true
     init()
     animate()
     audio.pressedSound.play()
+    document.querySelector('#restartScreen').style.display = 'none'
 })
 document.querySelector('#homeButton').addEventListener('click',()=>{
     document.querySelector('#startScreen').style.display = 'block'
