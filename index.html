@@ -1,8 +1,23 @@
+<p class="levelEl">
+    <span>LEVEL:</span>
+    <span id="levelVal">1</span>
+</p>
+<p class="showLevel">
+    <span id="showLevel">LEVEL 1</span> 
+</p>
+<div class="showSeconds">
+    <p id="showSeconds">20s</p> 
+</div>
+
+
+
 <canvas></canvas>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+
 
 <div id="preScreen" class="preGameScreen">
    <body>
@@ -13,14 +28,17 @@
 </div>
 
 <div id="startScreen" class="menu">
+    <div class="stripesContainer">
+        <img src="./img/menuStripesLeft.png" alt="" class="stripesLeft">
+    </div>
     <div class="menuContainer">
         <img src="./img/RocketPocketTitle.png" alt="" class="menuTitle">
         <div class="menuSelection">
             <div class="row">
                 <div id='wrapper' class="col">
-                    <button id="startButton" type="button" class="btn" name="btn">START</button>
-                    <button id="garageButton" type="button" class="btn" name="btn">GARAGE</button>
-                    <button id="optionsButton" type="button" class="btn" name="btn">OPTIONS</button>
+                    <button id="startButton" class="btn" >START</button>
+                    <button id="garageButton" class="btn" >GARAGE</button>
+                    <button id="optionsButton" class="btn" >OPTIONS</button>
                 </div>
                 <div class="col">
                     <img src="./img/menuScreenShip.png" alt="" class="menuShip">
@@ -28,20 +46,26 @@
             </div>
         </div>
     </div>
+    <div>
+        <img src="./img/menuStripesRight.png" alt="" class="stripesRight">
+    </div>
     
 </div>
+
+
 <div class="screen" id = "restartScreen">
     <div  class="restartScreen">
         <div class="restartContainer">
             <img src="./img/gameOverTitle.png" alt="" class="gameOverTitle">
             <div class="restartSelection">
-                <button id="restartButton" type="button" class="btn">RESTART</button>
-                <button id="rsGarageButton" type="button" class="btn">GARAGE</button>
-                <button id="homeButton" type="button" class="btn">HOME</button>
+                <button id="restartButton" class="btn">RESTART</button>
+                <button id="rsGarageButton" class="btn">GARAGE</button>
+                <button id="homeButton" class="btn">HOME</button>
             </div>
         </div>
     </div>
 </div>
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

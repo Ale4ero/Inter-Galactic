@@ -1,14 +1,18 @@
 const canvas = document.querySelector('canvas')
+const levelVal = document.querySelector('#levelVal')
 const c = canvas.getContext('2d')
+
 
 canvas.width = innerWidth
 canvas.height = innerHeight
 
+let level = 1
+let startTime = Date.now()
 let player = new Player()
 let projectiles = []
 let asteroids = []
 let particles = []
-let astCount = 0
+let astCount = 4
 let hit = false
 //prescreen appears so that user inputs into browser and music can start
 let preScreen = true
@@ -27,7 +31,9 @@ var songs = [
 
 //function that initializes game
 function init(){
-    astCount = 0
+
+    level = 1
+    startTime = Date.now()
     player = new Player()
     projectiles = []
     asteroids = []
@@ -37,6 +43,7 @@ function init(){
         over: false,
         active: true
     }
+    levelVal.innerHTML = level
     //background stars
     for(let i = 0; i < 1000; i++) {
         let amount = Math.random() * 10;
@@ -61,6 +68,13 @@ function init(){
 
         }))
     }
+
+    //show level
+    document.querySelector('#showLevel').innerHTML = 'LEVEL: '+ level
+        document.querySelector('#showLevel').style.display = 'block'
+        setTimeout(()=>{
+            document.querySelector('#showLevel').style.display = 'none'
+        },2000)
 }
 
 
@@ -132,16 +146,43 @@ function animate(){
     if (!game.active) return
     
     requestAnimationFrame(animate)
+
+    //make sure code runs 60 fps no matter what system, since requestAnimation function varies per system
     const  msNow = window.performance.now()
     const elapsed = msNow - msPrev
-
     if (elapsed < fpsInterval) return
-
     msPrev = msNow - (elapsed % fpsInterval)
 
+
+
+    //continue to next level every 20s
+    //use date.now to tell how much time has gone by
+    const nowTime = Date.now()
+    const elapTime = nowTime - startTime
+    console.log('Time: '+elapTime+'ms')
+    //if 20 seconds have elapsed, next level
+    if (elapTime > 20000){
+        level++
+        levelVal.innerHTML = level
+        startTime = Date.now()
+
+        document.querySelector('#showLevel').innerHTML = 'LEVEL: '+ level
+        document.querySelector('#showLevel').style.display = 'block'
+        setTimeout(()=>{
+            document.querySelector('#showLevel').style.display = 'none'
+        },2000)
+    }
+
+
+    document.querySelector('#showSeconds').innerHTML = Math.floor(21 - (elapTime/1000)) + 's'
+
     c.fillStyle = '#24162F'
+    //c.fillStyle = '#004162'
     c.fillRect(0, 0, canvas.width, canvas.height)
     
+
+
+
     //when stars go off screen draw new ones 
     particles.forEach((particle, i) =>{
         if (particle.position.x + particle.size.width < 0){
@@ -259,8 +300,9 @@ function animate(){
 
     })
 
-    //max 3 asteroids 
-    if (asteroids.length < 5){
+
+    //min number of asteroids
+    if (asteroids.length < level + astCount){
         //console.log(asteroids)
         asteroids.push(new Asteroid())
     }

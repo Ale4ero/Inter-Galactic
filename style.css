@@ -9,10 +9,11 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: #3B1C47;
+    background: #004162;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 20;
 }
 
 .preGameScreen h2{
@@ -28,7 +29,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: #3B1C47;
+    background: #004162;
     z-index: 20;
     display: none;
 }
@@ -41,26 +42,41 @@
     margin-bottom: 0;
     width: 88%;
     max-width: 1700px;
+}
 
+.stripesLeft{
+    position: fixed;
+    width: 12vw;
+    margin-left: 4rem;
+    margin-top: 10rem;
+}
+
+.stripesRight{
+    position: fixed;
+    width: 16vw;
+    right: 0px;
+    top: 0;
+    margin-top: 10rem;
+    margin-right: -1rem;
 }
 
 .menuTitle{
     display: block; 
     margin: 0 auto;
-    width: 100%;
+    width: 75%;
     margin-top: 6rem;
 }
 
 .menuSelection{
     margin-top: 2rem;
-    margin-left: 5rem;
+    margin-left: 15rem;
     margin-right: 70rem;
     width: 50%
 }
 
 .row{
     display: flex;
-    gap: 7vw;
+    gap: 9vw;
 }
 
 #wrapper{
@@ -69,8 +85,9 @@
 
 .menuShip{
     position: fixed;
-    width: 35vw;
-    margin-right: 10rem;
+    width: 32vw;
+    margin-right: 8rem;
+    margin-top: 2rem;
 }
 
 .screen{
@@ -87,7 +104,7 @@
 
 .restartScreen{
     position: absolute;
-    background-color: #3B1C47;
+    background-color: #004162;
     border: solid #E45A85 15px;
     border-radius: 10px;
     z-index: 30;
@@ -114,7 +131,7 @@
 
 .btn{
     font-family: 'VT323', monospace;
-    color: white;
+    color: FFF2DB;
     display: block;
     background-color: #ff8b7e00;
     border: none;
@@ -137,9 +154,53 @@
 }
 
 .btn:hover{
-    background-color: #678AFB;
+    background-color: #FDAA93;
     scale: 1.25;
 }
+
+.levelEl{
+    position: fixed;
+    z-index: 10;
+    color: white;
+    font-family: 'VT323', monospace;
+    font-size: 3vw;
+    left: 15%
+}
+
+.showLevel{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#showLevel{
+    display: none;
+    z-index: 10;
+    color: green;
+    font-family: 'VT323', monospace;
+    font-size: 12vw;
+    animation: animate 2s linear infinite;
+}
+
+.showSeconds{
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    font-family: 'VT323', monospace;
+    font-size: 3vw;
+    color: white;
+}
+
 
 @keyframes animate{
     0%{
