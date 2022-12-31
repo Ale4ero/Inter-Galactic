@@ -161,7 +161,7 @@
 .levelEl{
     position: fixed;
     z-index: 10;
-    color: white;
+    color: #FFF2DB;
     font-family: 'VT323', monospace;
     font-size: 3vw;
     left: 15%
@@ -181,7 +181,7 @@
 #showLevel{
     display: none;
     z-index: 10;
-    color: green;
+    color: #FFF2DB;
     font-family: 'VT323', monospace;
     font-size: 12vw;
     animation: animate 2s linear infinite;
@@ -198,7 +198,7 @@
     justify-content: center;
     font-family: 'VT323', monospace;
     font-size: 3vw;
-    color: white;
+    color: #FFF2DB;
 }
 
 
