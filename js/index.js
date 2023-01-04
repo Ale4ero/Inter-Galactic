@@ -7,6 +7,7 @@ canvas.width = innerWidth
 canvas.height = innerHeight
 
 let level = 1
+let highScore = 1
 let startTime = Date.now()
 let player = new Player()
 let projectiles = []
@@ -259,6 +260,7 @@ function animate(){
                         player.opacity = 0
                         game.over = true
                         createParticles({object: player, color: 'red', fade: true})
+                        if (level > highScore) highScore = level;
                         
                         //ensure game only detects colllision once instead of multiple times in loop
                         if (!hit){
@@ -271,6 +273,8 @@ function animate(){
                                 console.log("player hit game over!")
                                 game.active = false
                                 document.querySelector('#restartScreen').style.display = 'flex'
+                                document.querySelector('.currentScoreEl').innerHTML = level
+                                document.querySelector('.highScoreEl').innerHTML = highScore
                             }, 2000)
 
                             hit = true
@@ -349,10 +353,64 @@ document.querySelector('#restartButton').addEventListener('click',()=>{
     audio.pressedSound.play()
     document.querySelector('#restartScreen').style.display = 'none'
 })
-document.querySelector('#homeButton').addEventListener('click',()=>{
+document.querySelector('#rsHomeButton').addEventListener('click',()=>{
     document.querySelector('#startScreen').style.display = 'block'
     document.querySelector('#restartScreen').style.display = 'none'
+    document.querySelector('.optionsScreen').style.display = 'none'
     audio.pressedSound.play()
+})
+
+document.querySelector('#opHomeButton').addEventListener('click',()=>{
+    document.querySelector('#startScreen').style.display = 'block'
+    document.querySelector('#restartScreen').style.display = 'none'
+    document.querySelector('.optionsScreen').style.display = 'none'
+    document.querySelector('#optionsScreen').style.display = 'none'
+    audio.pressedSound.play()
+})
+
+document.querySelector('#optionsButton').addEventListener('click',()=>{
+    document.querySelector('#startScreen').style.display = 'none'
+    document.querySelector('.optionsScreen').style.display = 'flex'
+    document.querySelector('#optionsScreen').style.display = 'flex'
+    document.querySelector('#opHomeButton').style.display = 'block'
+    document.querySelector('#opBackButton').style.display = 'none'
+    audio.pressedSound.play()
+})
+
+document.querySelector('#rsOptionsButton').addEventListener('click',()=>{
+    document.querySelector('#startScreen').style.display = 'none'
+    document.querySelector('.optionsScreen').style.display = 'flex'
+    document.querySelector('#optionsScreen').style.backgroundColor = '#00416200'
+    document.querySelector('#optionsScreen').style.display = 'flex'
+    document.querySelector('#restartScreen').style.display = 'none'
+    document.querySelector('#opHomeButton').style.display = 'none'
+    document.querySelector('#opBackButton').style.display = 'block'
+    audio.pressedSound.play()
+})
+
+document.querySelector('#opBackButton').addEventListener('click',()=>{
+    document.querySelector('.optionsScreen').style.display = 'none'
+    document.querySelector('#optionsScreen').style.display = 'none'
+    document.querySelector('#restartScreen').style.display = 'flex'
+    audio.pressedSound.play()
+})
+
+document.querySelector('.musicOn').addEventListener('change',(event)=>{
+    if(event.currentTarget.checked){
+        bgMusic.mute(false)
+    }else{
+        console.log("music paused")
+        bgMusic.mute(true)
+    }
+})
+
+document.querySelector('.soundFxOn').addEventListener('change',(event)=>{
+    if(event.currentTarget.checked){
+        muteSoundFx(false)
+    }else{
+        console.log("sound fx muted")
+        muteSoundFx(true)
+    }
 })
 
 
@@ -368,10 +426,16 @@ document.querySelector('#garageButton').addEventListener('mouseover',()=>{
 document.querySelector('#startButton').addEventListener('mouseover',()=>{
     audio.selectSound.play()
 })
-document.querySelector('#homeButton').addEventListener('mouseover',()=>{
+document.querySelector('#opHomeButton').addEventListener('mouseover',()=>{
     audio.selectSound.play()
 })
-document.querySelector('#rsGarageButton').addEventListener('mouseover',()=>{
+document.querySelector('#opBackButton').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+document.querySelector('#rsHomeButton').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+document.querySelector('#rsOptionsButton').addEventListener('mouseover',()=>{
     audio.selectSound.play()
 })
 

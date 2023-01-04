@@ -57,14 +57,52 @@
     <div  class="restartScreen">
         <div class="restartContainer">
             <img src="./img/gameOverTitle.png" alt="" class="gameOverTitle">
+            <div class="showScore">
+                <p class="currentScore">
+                    <span>Current Score:</span>
+                    <span class="currentScoreEl">2</span>
+                </p>
+                <p class="highScore">
+                    <span>High Score:</span>
+                    <span class="highScoreEl">1</span>
+                </p>
+            </div>
             <div class="restartSelection">
                 <button id="restartButton" class="btn">RESTART</button>
-                <button id="rsGarageButton" class="btn">GARAGE</button>
-                <button id="homeButton" class="btn">HOME</button>
+                <button id="rsOptionsButton" class="btn">OPTIONS</button>
+                <button id="rsHomeButton" class="btn">HOME</button>
             </div>
         </div>
     </div>
 </div>
+
+<div class="screen" id = "optionsScreen">
+    <div  class="optionsScreen">
+        <img src="./img/options_bg.png" alt="options screen background" class="optionsBg">
+        <div class="optionsSelection">
+            <div class="row">
+                <div class="col">
+                    <p>MUSIC</p>
+                    <p>SOUND FX</p>
+                </div>
+                <div class="col">
+                    <label class="switch">
+                        <input type="checkbox" class="musicOn" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" class="soundFxOn" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            
+            <button id="opHomeButton" class="btn">HOME</button>
+            <button id="opBackButton" class="btn">BACK</button>
+        </div>  
+    </div>
+</div>
+
 
 
 
@@ -74,8 +112,8 @@
 <script src="./js/classes/asteroid.js"></script>
 <script src="./js/classes/projectile.js"></script>
 <script src="./js/classes/particle.js"></script>
-<script src="./audio.js"></script>
-<script src="./index.js"></script>
+<script src="./js/classes/audio.js"></script>
+<script src="./js/index.js"></script>
 <link rel="stylesheet" href="./style.css">
 
 

@@ -1,6 +1,7 @@
 *{
     margin: 0;
     box-sizing: border-box;
+    font-family: 'VT323', monospace;
 }
 
 .preGameScreen{
@@ -79,6 +80,7 @@
     gap: 9vw;
 }
 
+
 #wrapper{
     margin-top: 4rem;
 }
@@ -90,7 +92,7 @@
     margin-top: 2rem;
 }
 
-.screen{
+#restartScreen{
     position: absolute;
     top: 0;
     right: 0;
@@ -122,12 +124,119 @@
     width: 100%;
 }
 
-.restartSelection{
+.showScore{
     display: block;
+    text-align: center;
+    font-size: 4rem;
+    margin-top: 2rem;
+    color:#FDAA93;
+}
+
+.restartSelection{
+    display: flex;
     margin: 3rem auto;
-    width: 40%;
+    width: 60%;
     justify-items: center;
 }
+
+#optionsScreen{
+    position: absolute;
+    z-index: 30;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: #004162;
+}
+
+.optionsBg{
+    position: absolute;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.optionsScreen{
+    position: absolute;
+    z-index: 30;
+    width: 70%;
+    display: none;
+    justify-content: center;
+    top: 20%;
+}
+
+.optionsSelection{
+    position: absolute;
+    display: block;
+    z-index: 31;
+    font-size: 4rem;
+    color: #FFF2DB;
+    margin-top: 10rem;
+}
+
+.switch{
+    position: relative;
+    display: block;
+    width: 60px;
+    height: 34px;
+    margin-bottom: 2rem;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #676767;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #FDAA93;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #E45A85;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
 
 .btn{
     font-family: 'VT323', monospace;
@@ -146,11 +255,19 @@
     cursor: pointer;
 }
 
+.optionsSelection .btn{
+    font-size: 3vw;
+    margin: 4rem auto;
+    padding: 0.1rem .5rem;
+    border-radius: .2em;
+}
+
 .restartContainer .btn{
     font-size: 3vw;
     margin: 2rem auto;
     padding: 0.1rem .5rem;
     border-radius: .2em;
+    display: inline-block;
 }
 
 .btn:hover{
@@ -201,6 +318,13 @@
     color: #FFF2DB;
 }
 
+#opHomeButton{
+    display: block;
+}
+
+#opBackButton{
+    display: none;
+}
 
 @keyframes animate{
     0%{

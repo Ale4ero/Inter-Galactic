@@ -1,13 +1,6 @@
 
-var songs = ['./audio/Everlong_FooFighters.mp3', './audio/Yolo_TheStrokes.mp3', './audio/HereComesYourMan_Pixes.mp3', './audio/HardToExplain_TheStrokes.mp3']
-var songFile = songs[Math.floor(Math.random() * songs.length)]
+
 const audio = {
-    backgroundMusic: new Howl({
-        src: songFile,
-        loop: false,
-        volume: 0.1,
-        html5: true
-    }),
     selectSound: new Howl({
         src: './audio/menuSelect.mp3',
         rate: 2.0 
@@ -39,8 +32,10 @@ const audio = {
     })
 }
 
+bgMusic = undefined
+
 function playlist(i, list) {
-    var sound = new Howl({
+     bgMusic = new Howl({
         src: list[i],
         volume: 0.1,
         onend: function () {
@@ -51,5 +46,14 @@ function playlist(i, list) {
             }
         }
     })
-    sound.play();
+    bgMusic.play();
 }
+
+function muteSoundFx(mute){
+    audio.selectSound.mute(mute)
+    audio.pressedSound.mute(mute)
+    audio.bombSound.mute(mute)
+    audio.laser.mute(mute)
+    audio.gameOver.mute(mute)
+}
+
