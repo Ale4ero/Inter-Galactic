@@ -15,7 +15,7 @@ class Player{
         this.opacity = 1
 
         const image = new Image()
-        image.src = './img/blue_pink_ship_pixel.png'
+        image.src = './img/darth_maul_ship.png'
 
         image.onload = () => {
             const ratio = .5

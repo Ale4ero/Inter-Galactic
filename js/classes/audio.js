@@ -11,7 +11,7 @@ const audio = {
     }),
     bombSound: new Howl({
         src: './audio/bomb.mp3',
-        volume: .2,
+        volume: .1,
         rate: 2.0 
     }),
     laser: new Howl({
@@ -41,8 +41,10 @@ function playlist(i, list) {
         onend: function () {
             if ((i + 1) == list.length) {
                 playlist(0, list)
+                if(!music) bgMusic.mute(true)
             } else {
                 playlist(i + 1, list)
+                if(!music) bgMusic.mute(true)
             }
         }
     })

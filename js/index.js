@@ -15,6 +15,7 @@ let asteroids = []
 let particles = []
 let astCount = 4
 let hit = false
+let music = true
 //prescreen appears so that user inputs into browser and music can start
 let preScreen = true
 let game = {
@@ -142,6 +143,7 @@ let fpsInterval = 1000 / fps
 let msPrev = window.performance.now()
 
 
+
 //main animation function
 function animate(){
     if (!game.active) return
@@ -177,8 +179,9 @@ function animate(){
 
     document.querySelector('#showSeconds').innerHTML = Math.floor(21 - (elapTime/1000)) + 's'
 
-    c.fillStyle = '#24162F'
-    //c.fillStyle = '#004162'
+    // c.fillStyle = '#24162F'
+    c.fillStyle = '#2c0c52'
+    
     c.fillRect(0, 0, canvas.width, canvas.height)
     
 
@@ -316,7 +319,7 @@ function animate(){
         player.movePlayer()
     }
 
-}
+}//END OF ANIMATE
 
 
 document.addEventListener('keydown', handleKeyInput);
@@ -372,6 +375,7 @@ document.querySelector('#optionsButton').addEventListener('click',()=>{
     document.querySelector('#startScreen').style.display = 'none'
     document.querySelector('.optionsScreen').style.display = 'flex'
     document.querySelector('#optionsScreen').style.display = 'flex'
+    document.querySelector('#optionsScreen').style.backgroundColor = '#004162'
     document.querySelector('#opHomeButton').style.display = 'block'
     document.querySelector('#opBackButton').style.display = 'none'
     audio.pressedSound.play()
@@ -398,9 +402,11 @@ document.querySelector('#opBackButton').addEventListener('click',()=>{
 document.querySelector('.musicOn').addEventListener('change',(event)=>{
     if(event.currentTarget.checked){
         bgMusic.mute(false)
+        music = true
     }else{
         console.log("music paused")
         bgMusic.mute(true)
+        music = false
     }
 })
 
