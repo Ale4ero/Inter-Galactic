@@ -9,6 +9,10 @@
     <p id="showSeconds">20s</p> 
 </div>
 
+<!-- <div class="garageScreen">
+
+</div> -->
+
 <title>Inter-Galactic</title>
 
 <canvas></canvas>
@@ -23,9 +27,9 @@
    <body>
         <h2>Press Any Key To Start</h2>
    </body>
-    
- 
 </div>
+
+
 
 <div id="startScreen" class="menu">
     <div class="stripesContainer">
@@ -103,6 +107,86 @@
     </div>
 </div>
 
+
+<div class="garageScreen">
+    <img src="./img/garageBg.png" alt="" class="garageBg">
+
+    <div class="garageContainer">
+        <div class="row" id="row1">
+            <div class="col">
+                <p>Unlocked</p>
+                <div class="ship" >
+                    <input class="ogRadio" type="radio" name="garage" checked>
+                    <div class="shipContainer" id="original">
+                        <img src="./img/original_ship.png" alt="" class="shipImg">
+                    </div>  
+                </div>
+                <p>Original</p>  
+            </div>
+            <div class="col">
+                <p>Unlocked</p>
+                <div class="ship" >
+                    <input class="rrRadio" type="radio" name="garage">
+                    <div class="shipContainer" id="redRocket">
+                        <img src="./img/red_rocket_ship.png" alt="" class="shipImg">
+                    </div>   
+                </div>
+                <p>Red Rocket</p>
+            </div>
+            <div class="col">
+                <p>Level 3</p>
+                <div class="ship">
+                    <img src="./img/shipLock.png" alt="" class="lockImg" id="kbLock">
+                    <input class="kbRadio" type="radio" name="garage">
+                    <div class="shipContainer" id="killBill">
+                        <img src="./img/kill_bill_ship.png" alt="" class="shipImg">
+                    </div>
+                </div>
+                <p>Kill Bill</p>
+            </div>
+            <div class="col">
+                <p>Level 6</p>
+                <div class="ship" >
+                    <img src="./img/shipLock.png" alt="" class="lockImg" id="srLock">
+                    <input class="srRadio" type="radio" name="garage">
+                    <div class="shipContainer" id="sr71">
+                        <img src="./img/sr71_blackbird_ship.png" alt="" class="shipImg">
+                    </div>
+                </div>
+                <p>SR71-Blackbird</p>
+            </div>         
+        </div>
+        <div class="row" id="row2">
+            <div class="col">
+                <p>Level 7</p>
+                <div class="ship">
+                    <img src="./img/shipLock.png" alt="" class="lockImg" id="dmLock">
+                    <input class="dmRadio" type="radio" name="garage">
+                    <div class="shipContainer"  id="darthMaul">
+                        <img src="./img/darth_maul_ship.png" alt="" class="shipImg">
+                    </div>                    
+                </div>
+                <p>Darth Maul</p>
+            </div>
+            <div class="col">
+                <p>Level 8</p>
+                <div class="ship">
+                    <img src="./img/shipLock.png" alt="" class="lockImg" id="bLock">
+                    <input class="bRadio" type="radio" name="garage">
+                    <div class="shipContainer"  id="burger">
+                        <img src="./img//burger_ship.png" alt="" class="shipImg">
+                    </div>            
+                </div>
+                <p>Burger</p>
+            </div>
+            
+        </div>
+        
+        <button id="grgHomeButton" class="btn">BACK</button>
+
+    </div>
+
+</div> 
 
 
 

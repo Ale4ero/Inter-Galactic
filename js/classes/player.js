@@ -1,5 +1,5 @@
 class Player{
-    constructor(){
+    constructor(playerSprite){
         this.velocity ={
             x: 0,
             y: 0
@@ -15,7 +15,7 @@ class Player{
         this.opacity = 1
 
         const image = new Image()
-        image.src = './img/darth_maul_ship.png'
+        image.src = playerSprite
 
         image.onload = () => {
             const ratio = .5

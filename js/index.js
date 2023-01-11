@@ -16,12 +16,14 @@ let particles = []
 let astCount = 4
 let hit = false
 let music = true
+let coolDown = 20000
 //prescreen appears so that user inputs into browser and music can start
 let preScreen = true
 let game = {
     over: false,
     active: true
 }
+let playerSprite = './img/original_ship.png'
 
 //list of songs
 var songs = [
@@ -36,11 +38,13 @@ function init(){
 
     level = 1
     startTime = Date.now()
-    player = new Player()
+    player = new Player(playerSprite)
     projectiles = []
     asteroids = []
     particles = []
     hit = false
+    coolDown = 20000
+    astCount = 4
     game = {
         over: false,
         active: true
@@ -163,23 +167,54 @@ function animate(){
     const nowTime = Date.now()
     const elapTime = nowTime - startTime
     console.log('Time: '+elapTime+'ms')
-    //if 20 seconds have elapsed, next level
-    if (elapTime > 20000){
-        level++
-        levelVal.innerHTML = level
-        startTime = Date.now()
 
-        document.querySelector('#showLevel').innerHTML = 'LEVEL: '+ level
-        document.querySelector('#showLevel').style.display = 'block'
-        setTimeout(()=>{
-            document.querySelector('#showLevel').style.display = 'none'
-        },2000)
+    if(level%2 == 0 && newLevel){
+        newLevel = false
+        if(coolDown<10000) return
+        coolDown-=2000
+        astCount+= 2
     }
 
+    //if 20 seconds have elapsed, next level
+    //stop updating if hit
+    if(!hit){
+        if (elapTime > coolDown){
+            level++
+            newLevel = true
+            levelVal.innerHTML = level
+            startTime = Date.now()
+    
+            document.querySelector('#showLevel').innerHTML = 'LEVEL: '+ level
+            document.querySelector('#showLevel').style.display = 'block'
+            setTimeout(()=>{
+                document.querySelector('#showLevel').style.display = 'none'
+            },2000)
+        }
+        document.querySelector('#showSeconds').innerHTML = Math.floor(((coolDown/1000)+1) - (elapTime/1000)) + 's'
+    }
+    
 
-    document.querySelector('#showSeconds').innerHTML = Math.floor(21 - (elapTime/1000)) + 's'
+
+    
 
     // c.fillStyle = '#24162F'
+    // switch(level){
+    //     case 1:
+    //         c.fillStyle = '#2c0c52'
+    //         break
+    //     case 2:
+    //         c.fillStyle = '#39106A'
+    //         break
+    //     case 3:
+    //         c.fillStyle = '#42137C'
+    //         break
+    //     case 4:
+    //         c.fillStyle = '#7B2869'
+    //         break
+    //     default:
+    //         c.fillStyle = '#42137C'
+    // }
+
     c.fillStyle = '#2c0c52'
     
     c.fillRect(0, 0, canvas.width, canvas.height)
@@ -309,10 +344,32 @@ function animate(){
 
 
     //min number of asteroids
-    if (asteroids.length < level + astCount){
+    if (asteroids.length < astCount){
         //console.log(asteroids)
         asteroids.push(new Asteroid())
     }
+
+
+    //unlock new sprites
+    if(highScore >= 3){
+        document.querySelector('#kbLock').style.display = 'none'
+    }
+  
+    if(highScore >= 6){
+        document.querySelector('#srLock').style.display = 'none'
+    }
+
+    if(highScore >= 7){
+        document.querySelector('#dmLock').style.display = 'none'
+    }
+        
+    if(highScore >= 8){
+        document.querySelector('#bLock').style.display = 'none'
+    }
+        
+
+        
+
 
     //as long as game is not over mover player
     if (!game.over){
@@ -371,6 +428,12 @@ document.querySelector('#opHomeButton').addEventListener('click',()=>{
     audio.pressedSound.play()
 })
 
+document.querySelector('#grgHomeButton').addEventListener('click',()=>{
+    document.querySelector('#startScreen').style.display = 'block'
+    document.querySelector('.garageScreen').style.display = 'none'
+    audio.pressedSound.play()
+})
+
 document.querySelector('#optionsButton').addEventListener('click',()=>{
     document.querySelector('#startScreen').style.display = 'none'
     document.querySelector('.optionsScreen').style.display = 'flex'
@@ -378,6 +441,12 @@ document.querySelector('#optionsButton').addEventListener('click',()=>{
     document.querySelector('#optionsScreen').style.backgroundColor = '#004162'
     document.querySelector('#opHomeButton').style.display = 'block'
     document.querySelector('#opBackButton').style.display = 'none'
+    audio.pressedSound.play()
+})
+
+document.querySelector('#garageButton').addEventListener('click',()=>{
+    document.querySelector('#startScreen').style.display = 'none'
+    document.querySelector('.garageScreen').style.display = 'flex'
     audio.pressedSound.play()
 })
 
@@ -419,6 +488,37 @@ document.querySelector('.soundFxOn').addEventListener('change',(event)=>{
     }
 })
 
+document.querySelector('#original').addEventListener('click',()=>{
+    playerSprite = './img/original_ship.png'
+    document.querySelector('.ogRadio').checked = true
+    audio.pressedSound.play()
+})
+
+document.querySelector('#redRocket').addEventListener('click',()=>{
+    playerSprite = './img/red_rocket_ship.png'
+    document.querySelector('.rrRadio').checked = true
+    audio.pressedSound.play()
+})
+document.querySelector('#killBill').addEventListener('click',()=>{
+    playerSprite = './img/kill_bill_ship.png'
+    document.querySelector('.kbRadio').checked = true
+    audio.pressedSound.play()
+})
+document.querySelector('#sr71').addEventListener('click',()=>{
+    playerSprite = './img/sr71_blackbird_ship.png'
+    document.querySelector('.srRadio').checked = true
+    audio.pressedSound.play()
+})
+document.querySelector('#darthMaul').addEventListener('click',()=>{
+    playerSprite = './img/darth_maul_ship.png'
+    document.querySelector('.dmRadio').checked = true
+    audio.pressedSound.play()
+})
+document.querySelector('#burger').addEventListener('click',()=>{
+    playerSprite = './img/burger_ship.png'
+    document.querySelector('.bRadio').checked = true
+    audio.pressedSound.play()
+})
 
 document.querySelector('#restartButton').addEventListener('mouseover',()=>{
     audio.selectSound.play()
@@ -442,6 +542,27 @@ document.querySelector('#rsHomeButton').addEventListener('mouseover',()=>{
     audio.selectSound.play()
 })
 document.querySelector('#rsOptionsButton').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+document.querySelector('#grgHomeButton').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+document.querySelector('#original').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+document.querySelector('#redRocket').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+document.querySelector('#killBill').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+document.querySelector('#sr71').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+document.querySelector('#darthMaul').addEventListener('mouseover',()=>{
+    audio.selectSound.play()
+})
+document.querySelector('#burger').addEventListener('mouseover',()=>{
     audio.selectSound.play()
 })
 

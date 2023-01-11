@@ -327,6 +327,106 @@
     display: none;
 }
 
+.garageScreen{
+    background-color: #004162;
+    z-index: 30;
+    position: absolute;
+    display: none;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.garageBg{
+    height: 100%;
+    margin: 0 auto;
+}
+
+.garageContainer{
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+
+
+.shipContainer{
+    background-color: #202557;
+    display: flex;
+    height: 8vw;
+    width: 8vw; 
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 5px 8px black;
+}
+
+.shipContainer:hover{
+    scale: 1.25;
+    border: #2fb445 3px solid;
+    border-radius: 4px;
+}
+
+.ship > input{
+    visibility: hidden;
+    position: absolute;
+}
+
+.ship > input + div{
+    
+    cursor: pointer;
+    border: transparent 3px solid;
+    
+}
+
+.ship > input:checked+div{
+    border: #2fb445 3px solid;
+    border-radius: 4px;
+}
+
+.garageContainer .row{
+    display: flex;
+    gap: 5vw;
+    justify-content: center;
+}
+
+#row1{
+    margin-bottom: 2vw;
+}
+
+.garageContainer p{
+    color: #FFF2DB;
+    
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    font-size: 1.7vw;
+}
+
+.garageContainer .btn{
+    position: relative;
+    font-size: 3vw;
+    margin: 0 auto;
+    padding: 0.1rem .5rem;
+    border-radius: .2em;
+    margin-top: 3rem;
+}
+
+
+.shipImg{
+    width: 80%;
+}
+
+.lockImg{
+    width: 8vw;
+    height: 8vw;
+    position: absolute;
+}
+
+
+
 @keyframes animate{
     0%{
         opacity: 0.1;
