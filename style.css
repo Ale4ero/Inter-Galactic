@@ -438,6 +438,13 @@
     position: absolute;
 }
 
+.tooSmall{
+    font-size: 3vw;
+    margin-left: 20px;
+    margin-top: 20px;
+    display: none;
+}
+
 
 
 @keyframes animate{
@@ -450,5 +457,22 @@
     100%{
         opacity: 0.1;
     }
+}
+
+@media screen and (max-width: 1520px) {
+    .preGameScreen{
+        display: none;
+    }
+    .levelEl{
+        display: none;
+    }
+    .showSeconds{
+        display: none;
+    }
+
+    .tooSmall{
+        display:block
+    }
+
 }
 
