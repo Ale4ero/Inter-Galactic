@@ -16,7 +16,8 @@ let particles = []
 let astCount = 4
 let hit = false
 let music = true
-let coolDown = 20000
+let coolDown = 15000
+let tempCoolDown = coolDown
 //prescreen appears so that user inputs into browser and music can start
 let preScreen = true
 let game = {
@@ -43,7 +44,8 @@ function init(){
     asteroids = []
     particles = []
     hit = false
-    coolDown = 20000
+    coolDown = 15000
+    tempCoolDown = coolDown
     astCount = 4
     game = {
         over: false,
@@ -91,25 +93,26 @@ function handleKeyInput(event) {
     const isKeyDown = type === 'keydown' ? true : false
 
     
-    if (key === 'a' || key === 'A'){
+    if (key === 'a' || key === 'ArrowLeft'){
         player.rotatingLeft = isKeyDown
     } 
-    if (key === 'd' || key === 'D'){
+    if (key === 'd' || key === 'ArrowRight'){
         player.rotatingRight = isKeyDown
     } 
-    if (key === 'w' || key === 'W'){
+    if (key === 'w' || key === 'ArrowUp'){
         player.engineOn = isKeyDown
     } 
     if (key === ' '){
         player.shooting = isKeyDown
         //console.log(projectiles)
     } 
-    if (key === 's' || key === 'S'){
+    if (key === 's' || key === 'ArrowDown'){
         player.reverse = isKeyDown
     }
-    if (key === 'Shift'){
-        player.boost = isKeyDown
-    }
+    // if (key === 'Shift'){
+    //     player.boost = isKeyDown
+    // }
+    console.log(event)
 }
 
 
@@ -170,7 +173,7 @@ function animate(){
 
     if(level%2 == 0 && newLevel){
         newLevel = false
-        if(coolDown<10000) return
+        if(coolDown<8000) return
         coolDown-=2000
         astCount+= 2
     }
@@ -178,9 +181,10 @@ function animate(){
     //if 20 seconds have elapsed, next level
     //stop updating if hit
     if(!hit){
-        if (elapTime > coolDown){
+        if (elapTime > tempCoolDown){
             level++
             newLevel = true
+            tempCoolDown = coolDown
             levelVal.innerHTML = level
             startTime = Date.now()
     
@@ -190,7 +194,7 @@ function animate(){
                 document.querySelector('#showLevel').style.display = 'none'
             },2000)
         }
-        document.querySelector('#showSeconds').innerHTML = Math.floor(((coolDown/1000)+1) - (elapTime/1000)) + 's'
+        document.querySelector('#showSeconds').innerHTML = Math.floor(((tempCoolDown/1000)+1) - (elapTime/1000)) + 's'
     }
     
 
@@ -334,7 +338,13 @@ function animate(){
                             audio.bombSound.play()
                             asteroids.splice(i,1)
                             projectiles.splice(j, 1)
+                            console.log('temp cool down: '+ tempCoolDown)
+                            tempCoolDown-=1000
                         }, 0)
+                        document.querySelector('#minus1Sec').style.display = 'flex'
+                        setTimeout(()=>{
+                            document.querySelector('#minus1Sec').style.display = 'none'
+                        }, 500)
                     }
 
             })
