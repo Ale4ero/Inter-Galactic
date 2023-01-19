@@ -459,7 +459,7 @@
     }
 }
 
-@media screen and (max-width: 1520px) {
+@media screen and (max-width: 1420px) {
     .preGameScreen{
         display: none;
     }
