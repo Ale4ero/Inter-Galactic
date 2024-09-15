@@ -82,7 +82,7 @@ function init(){
             color : '#9CD2EC',
             fade: false,
             star: true,
-            type: Math.random() * 3,    //randomise, if > 2 its a big star
+            type: Math.random() * 3,    
             opacity: 0.7
 
         }))
@@ -120,9 +120,6 @@ function handleKeyInput(event) {
     if (key === 's' || key === 'ArrowDown'){
         player.reverse = isKeyDown
     }
-    // if (key === 'Shift'){
-    //     player.boost = isKeyDown
-    // }
     console.log(event)
 }
 
