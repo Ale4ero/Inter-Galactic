@@ -2,9 +2,19 @@ const canvas = document.querySelector('canvas')
 const levelVal = document.querySelector('#levelVal')
 const c = canvas.getContext('2d')
 
+var canvWidth = window.innerWidth; 
+var canvHeight = window.innerHeight; 
 
-canvas.width = innerWidth
-canvas.height = innerHeight
+canvas.width = canvWidth;
+canvas.height = canvHeight;
+
+
+window.addEventListener('resize', ()=>{
+    canvWidth = window.innerWidth;
+    canvHeight = window.innerHeight; 
+    canvas.width = canvWidth;
+    canvas.height = canvHeight;
+ })
 
 let level = 1
 let highScore = 1
@@ -52,6 +62,7 @@ function init(){
         active: true
     }
     levelVal.innerHTML = level
+
     //background stars
     for(let i = 0; i < 1000; i++) {
         let amount = Math.random() * 10;
@@ -79,10 +90,10 @@ function init(){
 
     //show level
     document.querySelector('#showLevel').innerHTML = 'LEVEL: '+ level
-        document.querySelector('#showLevel').style.display = 'block'
-        setTimeout(()=>{
-            document.querySelector('#showLevel').style.display = 'none'
-        },2000)
+    document.querySelector('#showLevel').style.display = 'block'
+    setTimeout(()=>{
+        document.querySelector('#showLevel').style.display = 'none'
+    },2000)
 }
 
 
@@ -198,26 +209,6 @@ function animate(){
     }
     
 
-
-    
-
-    // c.fillStyle = '#24162F'
-    // switch(level){
-    //     case 1:
-    //         c.fillStyle = '#2c0c52'
-    //         break
-    //     case 2:
-    //         c.fillStyle = '#39106A'
-    //         break
-    //     case 3:
-    //         c.fillStyle = '#42137C'
-    //         break
-    //     case 4:
-    //         c.fillStyle = '#7B2869'
-    //         break
-    //     default:
-    //         c.fillStyle = '#42137C'
-    // }
 
     c.fillStyle = '#2c0c52'
     

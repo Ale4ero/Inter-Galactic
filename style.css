@@ -459,7 +459,7 @@
     }
 }
 
-@media screen and (max-width: 1420px) {
+/* @media screen and (max-width: 1420px) {
     .preGameScreen{
         display: none;
     }
@@ -474,5 +474,5 @@
         display:block
     }
 
-}
+} */
 
