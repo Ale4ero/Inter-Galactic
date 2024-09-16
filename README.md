@@ -52,13 +52,67 @@ function animate() {
 
 ### 2. **Handling Player Input (`handleKeyInput()` function)**
 This function handles player control through keyboard inputs (e.g., movement and shooting):
+
+```javascript
+function handleKeyInput(event) {
+    if (game.over) return
+    const { key, type, shiftKey} = event
+    const isKeyDown = type === 'keydown' ? true : false
+
+    
+    if (key === 'a' || key === 'ArrowLeft'){
+        player.rotatingLeft = isKeyDown
+    } 
+    if (key === 'd' || key === 'ArrowRight'){
+        player.rotatingRight = isKeyDown
+    } 
+    if (key === 'w' || key === 'ArrowUp'){
+        player.engineOn = isKeyDown
+    } 
+    if (key === ' '){
+        player.shooting = isKeyDown
+        //console.log(projectiles)
+    } 
+    if (key === 's' || key === 'ArrowDown'){
+        player.reverse = isKeyDown
+    }
+    console.log(event)
+}
+```
 - **'a' or 'ArrowLeft'**: Rotates the ship left.
 - **'d' or 'ArrowRight'**: Rotates the ship right.
 - **'w' or 'ArrowUp'**: Moves the ship forward.
 - **'Spacebar'**: Fires projectiles.
 
 ### 3. **Particle System (`createParticles()` function)**
-When asteroids are destroyed or the player is hit, particles are generated to create an explosion-like effect. Particles are dynamically rendered based on the object's position and are removed when they fade out.
+When asteroids are destroyed or the player is hit, particles are generated to create an explosion-like effect.
+```javascript
+function createParticles({object, color, fade, opacity, star, type }){
+    for(let i = 0; i < 15; i++){
+        let amount = Math.random() * 10
+        particles.push(new Particle({
+            position: {
+                x: object.position.x + object.width/2,
+                y: object.position.y + object.height/2
+            }, 
+            velocity: {
+                x: (Math.random() - .5) * 2,
+                y : (Math.random() - .5) * 2
+            },
+            size: {
+                width: amount,
+                height: amount
+            },
+            color : color || '#8e99a9',
+            fade: true,
+            star: false,
+            type: 0,
+            opacity: 1
+        }))
+    }
+}
+```
+-**Particle Generation**: Particles are dynamically rendered based on the object's position and are removed when they fade out.
 
 ### 4. **Asteroid and Projectile Management**
 - **Asteroids**: The game spawns new asteroids and keeps them within a threshold. Collision detection ensures asteroids are destroyed by projectiles or if they collide with the player.
@@ -81,9 +135,6 @@ As players reach certain scores, they can unlock new ship designs in the garage:
 - **JavaScript**: Game logic, animations, and event handling.
 - **Howler.js**: For managing sound effects.
 
-## License
-
-This project is licensed under the MIT License.
 
 ## Acknowledgments
 
