@@ -31,6 +31,20 @@ To play the game locally, follow these steps:
 
 ### 1. **Main Game Loop (`animate()` function)**
 The `animate()` function is the core of the game, ensuring smooth rendering and updating game elements on each frame:
+```javascript
+function animate() {
+    if (!game.active) return;
+    requestAnimationFrame(animate);
+
+    const msNow = window.performance.now();
+    const elapsed = msNow - msPrev;
+    if (elapsed < fpsInterval) return;
+    msPrev = msNow - (elapsed % fpsInterval);
+
+    // Game logic and rendering code...
+    c.fillRect(0, 0, canvas.width, canvas.height);
+}
+```
 - **Frame Rate Control**: The function ensures the game runs at 60 FPS using `requestAnimationFrame(animate)` and time-based calculations.
 - **Level Progression**: The game progresses automatically every 20 seconds by increasing difficulty (more asteroids and reduced cool-down time).
 - **Rendering**: Clears the canvas and redraws all elements (particles, projectiles, asteroids, player) every frame.

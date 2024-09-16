@@ -98,6 +98,7 @@ function init(){
 
 
 //function to handle input from keyboard
+//Purpose: Handles keyboard input from the player to control the spaceship’s movement and actions during gameplay.
 function handleKeyInput(event) {
     if (game.over) return
     const { key, type, shiftKey} = event
@@ -126,6 +127,7 @@ function handleKeyInput(event) {
 
 
 //function to create particles
+//Purpose: Generates visual particles on the canvas, simulating effects like explosions, collisions, or other graphical feedback.
 function createParticles({object, color, fade, opacity, star, type }){
     for(let i = 0; i < 15; i++){
         let amount = Math.random() * 10
@@ -160,6 +162,7 @@ let msPrev = window.performance.now()
 
 
 //main animation function
+//core game loop
 function animate(){
     if (!game.active) return
     
@@ -377,10 +380,12 @@ function animate(){
 }//END OF ANIMATE
 
 
+
+
+//Event Listeners Below
+
 document.addEventListener('keydown', handleKeyInput);
 document.addEventListener('keyup', handleKeyInput);
-
-
 
 
 
