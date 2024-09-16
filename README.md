@@ -14,7 +14,8 @@ Inter-Galactic is a retro space shooter game built using HTML5, CSS3, and JavaSc
 - **Sound Effects**: Integrated with Howler.js for dynamic sound effects that can be toggled on or off.
 
 ## Installation
-
+To play the game online, click this link:
+[Inter-Galactic](https://ale4ero.github.io/Inter-Galactic/)
 To play the game locally, follow these steps:
 
 1. Clone the repository:
